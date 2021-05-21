@@ -51,6 +51,7 @@ body {
   background-repeat: repeat;
   background: #f9f9f9;
   font-family: "Quicksand", sans-serif;
+	font-weight : 400;
   color: #354558;
   font-size: 13px;
 }

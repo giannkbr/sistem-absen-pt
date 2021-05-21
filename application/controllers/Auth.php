@@ -36,6 +36,15 @@ class Auth extends CI_Controller
 					$this->session->set_userdata('login', TRUE);
 
 					if ($user['role_id'] == 1) {
+						$this->session->set_flashdata(
+							'message',
+							'<div class="alert alert-success alert-dismissible fade show" role="alert">
+						Berhasil Login!
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						</div>'
+						);
 						redirect('admin');
 					} else {
 						redirect('user');
@@ -73,8 +82,17 @@ class Auth extends CI_Controller
 
 	public function logout()
 	{
-		$this->session->sess_destroy();
-
+		if ($this->session->sess_destroy() == TRUE) {
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						Berhasil Logout!
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>'
+			);
+		}
 		redirect('auth');
 	}
 }

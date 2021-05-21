@@ -14,10 +14,11 @@ class Admin extends CI_Controller
 		// $this->load->model('admin_model', 'admin');
 	}
 
-
 	public function index()
 	{
-		echo "jancok";
+		$data['title'] = 'Dashboard';
+		$data['page'] 	= 'admin/dashboard/index';
+		$this->load->view('templates/app', $data);
 	}
 }
 

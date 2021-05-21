@@ -23,6 +23,7 @@
 	<div class="accountbg"></div>
 	<div class="wrapper-page">
 		<div class="card card-pages shadow-none">
+			<?= $this->session->flashdata('message') ?>
 
 			<div class="card-body">
 				<div class="text-center m-t-0 m-b-15">
@@ -30,7 +31,7 @@
 				</div>
 				<h5 class="font-18 text-center">Login <br> E-Absensi PT.</h5>
 
-				<?= $this->session->flashdata('message') ?>
+
 
 				<form action="<?= base_url('auth') ?>" method="post" class="user">
 					<div class="form-group">
