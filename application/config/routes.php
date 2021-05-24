@@ -57,3 +57,5 @@ $route['translate_uri_dashes'] = FALSE;
 $route['data-jabatan'] = 'Karyawan/jabatan';
 $route['add-jabatan'] = 'Karyawan/addjabatan';
 $route['hapus-jabatan'] = 'Karyawan/deletejabatan';
+
+$route['data-karyawan'] = 'Karyawan';
