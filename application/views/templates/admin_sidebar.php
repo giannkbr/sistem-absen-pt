@@ -15,8 +15,8 @@
 						<ul class="submenu megamenu">
 							<li>
 								<ul>
-									<li><a href="ui-alerts.html">Data Karyawan</a></li>
-									<li><a href="ui-badge.html">Data Jabatan</a></li>
+									<li><a href="<?= base_url('data-karyawan'); ?>">Data Karyawan</a></li>
+									<li><a href="<?= base_url('data-jabatan'); ?>">Data Jabatan</a></li>
 								</ul>
 							</li>
 						</ul>

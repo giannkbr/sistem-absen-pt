@@ -16,8 +16,13 @@ class Admin extends CI_Controller
 
 	public function index()
 	{
-		$data['title'] = 'Dashboard';
-		$data['page'] 	= 'admin/dashboard/index';
+		$data = [
+			'title' => 'Dashboard',
+			'page' => 'admin/dashboard/index',
+			'subtitle' => 'Dashboard',
+			'subtitle2' => 'Index'
+		];
+
 		$this->load->view('templates/app', $data);
 	}
 }

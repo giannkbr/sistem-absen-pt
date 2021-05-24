@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -52,3 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// Master Jabatan
+$route['data-jabatan'] = 'Karyawan/jabatan';
+$route['add-jabatan'] = 'Karyawan/addjabatan';
+$route['hapus-jabatan'] = 'Karyawan/deletejabatan';

@@ -23,7 +23,6 @@
 	<div class="accountbg"></div>
 	<div class="wrapper-page">
 		<div class="card card-pages shadow-none">
-			<?= $this->session->flashdata('message') ?>
 
 			<div class="card-body">
 				<div class="text-center m-t-0 m-b-15">
@@ -70,7 +69,7 @@
 
 					<div class="form-group row m-t-30 m-b-0">
 						<div class="col-sm-7">
-							<a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot
+							<a href="<?php base_url('auth/change_password') ?>" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot
 								your password?</a>
 						</div>
 						<div class="col-sm-5 text-right">
@@ -93,7 +92,8 @@
 
 	<!-- App js -->
 	<script src="<?= base_url('assets/') ?>js/app.js"></script>
-
+	<script src="<?php echo base_url('assets/') ?>alert.js"></script>
+	<?php echo "<script>" . $this->session->flashdata('message') . "</script>" ?>
 </body>
 
 </html>
