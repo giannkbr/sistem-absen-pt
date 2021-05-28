@@ -39,7 +39,7 @@
 					<div>
 						<a href="index.html" class="logo">
 							<span class="logo-light">
-								<i class="mdi mdi-camera-control"></i> E - Absensi Magang
+								<i class="mdi mdi-camera-control"></i> E - Absensi
 							</span>
 						</a>
 					</div>
@@ -64,7 +64,7 @@
 									</a>
 									<div class="dropdown-menu dropdown-menu-right profile-dropdown ">
 										<!-- item-->
-										<a href="#" class="dropdown-item"><?= $this->session->userdata('nama') ?> - <?= $this->session->userdata('level') ?></a>
+										<a href="#" class="dropdown-item">Hai, <?= $this->session->userdata('nama') ?></a>
 										<a class="dropdown-item" href="#"><i class="mdi mdi-account-circle"></i>
 											Profile</a>
 										<a class="dropdown-item d-block" href="<?php base_url('auth/change_password') ?>"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings"></i> Settings</a>

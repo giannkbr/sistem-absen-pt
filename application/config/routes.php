@@ -58,4 +58,15 @@ $route['data-jabatan'] = 'Karyawan/jabatan';
 $route['add-jabatan'] = 'Karyawan/addjabatan';
 $route['hapus-jabatan'] = 'Karyawan/deletejabatan';
 
+// Master Karyawan
 $route['data-karyawan'] = 'Karyawan';
+$route['add-karyawan'] = 'Karyawan/addkaryawan';
+$route['edit-karyawan'] = 'Karyawan/editkaryawan';
+
+// Master Cuti 
+$route['data-cuti'] = 'Cuti';
+$route['terima-cuti'] = 'Cuti/cuti_terima/';
+$route['tolak-cuti'] = 'Cuti/cuti_tolak/';
+
+// Master Absensi
+$route['data-absensi'] = 'Absen';

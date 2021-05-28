@@ -18,6 +18,34 @@ class Admin_model extends CI_Model
 		$this->db->update('jabatan', $data, ['jabatan_id' => $id]);
 		return $this->db->affected_rows();
 	}
+
+	public function insertKaryawan($data)
+	{
+		$this->db->insert('users', $data);
+	}
+
+	function karyawan()
+	{
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->join('jabatan', 'users.jabatan_id = jabatan.jabatan_id');
+		return $this->db->get();
+	}
+
+	public function editKaryawan($id, $data)
+	{
+		$this->db->update('users', $data, ['users_id' => $id]);
+		return $this->db->affected_rows();
+	}
+
+	public function cuti()
+	{
+		$this->db->select('*');
+		$this->db->from('cuti');
+		$this->db->join('users', 'cuti.nip = users.nip');
+		$this->db->order_by('cuti.id_cuti', 'desc');
+		return $this->db->get();
+	}
 }
 
 /* End of file ModelName.php */

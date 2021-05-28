@@ -2,18 +2,18 @@
 	<div class="col-12">
 		<div class="card m-b-30">
 			<div class="card-body">
-				<form action="<?= base_url('add-karyawan'); ?>" method="post">
+				<form action="<?= base_url('Karyawan/editkaryawan/' . $users->users_id) ?>" method="post">
 					<div class="form-group row">
 						<label for="nip" class="col-sm-2 col-form-label">Nomer Induk Pegawai</label>
 						<div class="col-sm-10">
-							<input class="form-control" type="text" id="nip" name="nip">
+							<input class="form-control" type="text" id="nip" value="<?= $users->nip ?> name=" nip">
 							<?= form_error('nip', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="nama" class="col-sm-2 col-form-label">Nama Karyawan</label>
 						<div class="col-sm-10">
-							<input class="form-control" type="text" id="nama" name="nama">
+							<input class="form-control" type="text" id="nama" value="<?= $users->nama ?> name=" nama">
 							<?= form_error('nama', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
 						</div>
 					</div>

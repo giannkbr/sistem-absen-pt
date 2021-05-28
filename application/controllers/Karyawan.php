@@ -90,18 +90,162 @@ class Karyawan extends CI_Controller
 	}
 
 
-
 	public function index()
 	{
 		$data = [
 			'title' => 'Data Karyawan',
-			'page' => 'admin/karyawan/addkaryawan',
+			'page' => 'admin/karyawan/datakaryawan',
 			'subtitle' => 'Admin',
 			'subtitle2' => 'Data Daryawan',
-			'data' => $this->db->get('users')->result()
+			'data' => $this->admin->karyawan()->result()
 		];
 
 		$this->load->view('templates/app', $data, FALSE);
+	}
+
+	public function addkaryawan()
+	{
+
+		$this->form_validation->set_rules('nip', 'NIP', 'required|trim', [
+			'required' => 'Nomer Induk Pegawai tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('nama', 'Nama Karyawan', 'required|trim', [
+			'required' => 'Nama Karyawan tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('email', 'Email', 'required|trim', [
+			'required' => 'Email tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('password', 'Password', 'required|trim', [
+			'required' => 'Password tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required|trim', [
+			'required' => 'Jabatan tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required|trim', [
+			'required' => 'Jenis Kelamin tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('role_id', 'Role', 'required|trim', [
+			'required' => 'Role tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('photo', 'Photo', 'required|trim', [
+			'required' => 'Photo tidak boleh kosong.'
+		]);
+
+		if ($this->form_validation->run() == FALSE) {
+			$data = [
+				'title' => 'Tambah Data Karyawan',
+				'page' => 'admin/karyawan/addkaryawan',
+				'subtitle' => 'Admin',
+				'subtitle2' => 'Tambah Data Karyawan',
+				'jabatan' => $this->db->get('jabatan')->result()
+			];
+			$this->load->view('templates/app', $data);
+		} else {
+			$data = [
+				'nip' => $this->input->post('nip'),
+				'nama' => $this->input->post('nama'),
+				'email' => $this->input->post('email'),
+				'password' => md5($this->input->post("password")),
+				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+				'role_id' => $this->input->post('role_id'),
+				'jabatan_id' => $this->input->post('jabatan')
+			];
+
+			if (isset($_FILES['photo']['name'])) {
+				$config['upload_path'] 		= './images/users/';
+				$config['allowed_types'] 	= 'gif|jpg|png|jpeg';
+				$config['overwrite']  		= true;
+
+				$this->load->library('upload', $config);
+
+				if (!$this->upload->do_upload('photo')) {
+					$this->session->set_flashdata('message', 'swal("Ops!", "Photo gagal diupload", "error");');
+					redirect(base_url('add-karyawan'));
+				} else {
+					$img = $this->upload->data();
+					$data['photo'] = $img['file_name'];
+				}
+			}
+
+			$this->db->insert('users', $data);
+			$this->session->set_flashdata('message', 'swal("Berhasil!", "Data Karyawan Berhasil Ditambahkan!", "success");');
+
+			redirect(base_url('data-karyawan'));
+		}
+	}
+
+	public function deletekaryawan($id)
+	{
+		$this->db->delete('users', ['users_id' => $id]);
+		$this->session->set_flashdata('message', 'swal("Berhasil!", "Data karyawan Berhasil Dihapus!", "success");');
+		redirect(base_url('data-karyawan'));
+	}
+
+	public function editkaryawan($id)
+	{
+
+		$this->form_validation->set_rules('nip', 'NIP', 'required|trim', [
+			'required' => 'Nomer Induk Pegawai tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('nama', 'Nama Karyawan', 'required|trim', [
+			'required' => 'Nama Karyawan tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('email', 'Email', 'required|trim', [
+			'required' => 'Email tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('password', 'Password', 'required|trim', [
+			'required' => 'Password tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required|trim', [
+			'required' => 'Jabatan tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required|trim', [
+			'required' => 'Jenis Kelamin tidak boleh kosong.'
+		]);
+
+		$this->form_validation->set_rules('role_id', 'Role', 'required|trim', [
+			'required' => 'Role tidak boleh kosong.'
+		]);
+
+
+		if ($this->form_validation->run() == FALSE) {
+			$data = [
+				'title' => 'Edit Data Karyawan',
+				'page' => 'admin/karyawan/editkaryawan',
+				'subtitle' => 'Admin',
+				'subtitle2' => 'Edit Data Karyawan',
+				'users' => $this->admin->karyawan()->result()
+			];
+			$this->load->view('templates/app', $data);
+		} else {
+			$data = [
+				'users_id' => $this->input->post('users_id'),
+				'nip' => $this->input->post('nip'),
+				'nama' => $this->input->post('nama'),
+				'email' => $this->input->post('email'),
+				'password' => md5($this->input->post("password")),
+				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+				'role_id' => $this->input->post('role_id'),
+				'jabatan_id' => $this->input->post('jabatan')
+			];
+
+			$this->admin->editJabatan($id, $data);
+			$this->session->set_flashdata('message', 'swal("Berhasil!", "Data Karyawan Berhasil Ditambahkan!", "success");');
+
+			redirect(base_url('data-karyawan'));
+		}
 	}
 }
 
