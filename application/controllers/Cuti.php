@@ -9,7 +9,6 @@ class Cuti extends CI_Controller
 	{
 		parent::__construct();
 		is_login();
-		is_admin();
 		$this->load->model('admin_model', 'admin');
 	}
 
@@ -37,6 +36,87 @@ class Cuti extends CI_Controller
 		$this->db->update('cuti', ['status' => 'ditolak'], ['id_cuti' => $id]);
 		$this->session->set_flashdata('message', 'swal("Berhasil!", "Menolak pengajuan cuti", "success");');
 		redirect('data-cuti');
+	}
+
+	// Master Cuti Karyawan
+	public function cuti_karyawan()
+	{
+		$users = $this->admin->usersid($this->session->userdata('nip'))->row();
+		$dt1 = new DateTime($users->waktu_masuk);
+		$dt2 = new DateTime(date('Y-m-d'));
+		$d = $dt2->diff($dt1)->days + 1;
+		$data = [
+			'title' => 'Data Cuti',
+			'bakti' => $d,
+			'page' => 'user/cuti/datacutikaryawan',
+			'subtitle' => 'Karyawan',
+			'subtitle2' => 'Data Permohonan Cuti',
+			'data' => $this->admin->cuti_karyawan($this->session->userdata('nip'))->result()
+		];
+
+		$this->load->view('templates/app', $data, FALSE);
+	}
+
+	public function cuti_add()
+	{
+		$users = $this->admin->usersid($this->session->userdata('nip'))->row();
+		$dt1 = new DateTime($users->waktu_masuk);
+		$dt2 = new DateTime(date('Y-m-d'));
+		$d = $dt2->diff($dt1)->days + 1;
+		$data = [
+			'title' => 'Data Cuti',
+			'bakti' => $d,
+			'page' => 'user/cuti/adddatacutikaryawan',
+			'subtitle' => 'Karyawan',
+			'subtitle2' => 'Data Permohonan Cuti',
+		];
+
+		$this->load->view('templates/app', $data, FALSE);
+	}
+
+	public function cuti_simpan()
+	{
+		$this->db->trans_start();
+
+		$data = array(
+			'nip'			=> $this->session->userdata('nip'),
+			'jenis_cuti'	=> $this->input->post('jenis'),
+			'alasan'		=> $this->input->post('alasan'),
+			'status'		=> 'diajukan'
+		);
+		if (isset($_FILES['bukti']['name'])) {
+			$config['upload_path'] 		= './images/';
+			$config['allowed_types'] 	= 'gif|jpg|png|jpeg';
+			$config['overwrite']  		= true;
+
+			$this->load->library('upload', $config);
+
+			if (!$this->upload->do_upload('bukti')) {
+				$this->session->set_flashdata('message', 'swal("Ops!", "Bukti gagal diupload", "error");');
+				redirect('cuti/cuti_add');
+			} else {
+				$img = $this->upload->data();
+				$data['bukti'] = $img['file_name'];
+			}
+		}
+		$this->db->insert('cuti', $data);
+		$cek = $this->db->query(" select * from cuti order by id_cuti desc limit 1 ")->row();
+		$dt1 = new DateTime($this->input->post('mulai'));
+		$dt2 = new DateTime($this->input->post('akhir'));
+		$jml = $dt2->diff($dt1)->days + 1;
+		$tgl1 = $this->input->post('mulai');
+		$no  = 1;
+		for ($i = 0; $i < $jml; $i++) {
+			$insert = array(
+				'id_cuti' => $cek->id_cuti,
+				'tanggal' => date('Y-m-d', strtotime('+' . $i . ' days', strtotime($tgl1))),
+			);
+			$this->db->insert('detailcuti', $insert);
+		}
+
+		$this->db->trans_complete();
+		$this->session->set_flashdata('message', 'swal("Berhasil!", "Pengajuan cuti", "success");');
+		redirect('data-cuti-karyawan');
 	}
 }
 

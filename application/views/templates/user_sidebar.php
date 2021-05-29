@@ -17,7 +17,7 @@
 								<ul>
 									<li><a href="ui-alerts.html">Data Absensi</a></li>
 									<li><a href="ui-alerts.html">Data Overtime</a></li>
-									<li><a href="<?= base_url('data-cuti'); ?>">Data Cuti</a></li>
+									<li><a href="<?= base_url('data-cuti-karyawan'); ?>">Data Cuti</a></li>
 								</ul>
 							</li>
 						</ul>

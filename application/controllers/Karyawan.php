@@ -134,8 +134,12 @@ class Karyawan extends CI_Controller
 			'required' => 'Role tidak boleh kosong.'
 		]);
 
-		$this->form_validation->set_rules('photo', 'Photo', 'required|trim', [
-			'required' => 'Photo tidak boleh kosong.'
+		// $this->form_validation->set_rules('photo', 'Photo', 'required|trim', [
+		// 	'required' => 'Photo tidak boleh kosong.'
+		// ]);
+
+		$this->form_validation->set_rules('waktu', 'Waktu Masuk', 'required|trim', [
+			'required' => 'Waktu Masuk tidak boleh kosong.'
 		]);
 
 		if ($this->form_validation->run() == FALSE) {
@@ -155,7 +159,8 @@ class Karyawan extends CI_Controller
 				'password' => md5($this->input->post("password")),
 				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
 				'role_id' => $this->input->post('role_id'),
-				'jabatan_id' => $this->input->post('jabatan')
+				'jabatan_id' => $this->input->post('jabatan'),
+				'waktu_masuk' => $this->input->post('waktu')
 			];
 
 			if (isset($_FILES['photo']['name'])) {
@@ -166,8 +171,8 @@ class Karyawan extends CI_Controller
 				$this->load->library('upload', $config);
 
 				if (!$this->upload->do_upload('photo')) {
-					$this->session->set_flashdata('message', 'swal("Ops!", "Photo gagal diupload", "error");');
-					redirect(base_url('add-karyawan'));
+					$this->session->set_flashdata('message', 'swal("Ops!", "photo gagal diupload", "error");');
+					redirect('cuti/cuti_add');
 				} else {
 					$img = $this->upload->data();
 					$data['photo'] = $img['file_name'];
@@ -203,10 +208,6 @@ class Karyawan extends CI_Controller
 			'required' => 'Email tidak boleh kosong.'
 		]);
 
-		$this->form_validation->set_rules('password', 'Password', 'required|trim', [
-			'required' => 'Password tidak boleh kosong.'
-		]);
-
 		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required|trim', [
 			'required' => 'Jabatan tidak boleh kosong.'
 		]);
@@ -226,22 +227,21 @@ class Karyawan extends CI_Controller
 				'page' => 'admin/karyawan/editkaryawan',
 				'subtitle' => 'Admin',
 				'subtitle2' => 'Edit Data Karyawan',
-				'users' => $this->admin->karyawan()->result()
+				'data' => $this->db->get('jabatan')->result(),
+				'detail' => $this->admin->usersid($id)->row()
 			];
 			$this->load->view('templates/app', $data);
 		} else {
 			$data = [
-				'users_id' => $this->input->post('users_id'),
 				'nip' => $this->input->post('nip'),
 				'nama' => $this->input->post('nama'),
 				'email' => $this->input->post('email'),
-				'password' => md5($this->input->post("password")),
 				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
 				'role_id' => $this->input->post('role_id'),
 				'jabatan_id' => $this->input->post('jabatan')
 			];
 
-			$this->admin->editJabatan($id, $data);
+			$this->admin->editkaryawan($id, $data);
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Data Karyawan Berhasil Ditambahkan!", "success");');
 
 			redirect(base_url('data-karyawan'));

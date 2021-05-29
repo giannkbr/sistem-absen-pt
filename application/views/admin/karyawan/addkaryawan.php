@@ -2,7 +2,7 @@
 	<div class="col-12">
 		<div class="card m-b-30">
 			<div class="card-body">
-				<form action="<?= base_url('add-karyawan'); ?>" method="post">
+				<form action="<?= base_url('add-karyawan'); ?>" method="post" enctype="multipart/form-data">
 					<div class="form-group row">
 						<label for="nip" class="col-sm-2 col-form-label">Nomer Induk Pegawai</label>
 						<div class="col-sm-10">
@@ -66,10 +66,16 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="photo" class="col-sm-2 col-form-label">File Photo</label>
+						<label for="waktu" class="col-sm-2 col-form-label">Waktu Masuk</label>
 						<div class="col-sm-10">
-							<input class="form-control" type="file" id="photo" name="photo">
-							<?= form_error('photo', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
+							<input type="date" name="waktu" class="form-control">
+							<?= form_error('waktu', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="photo" class="col-sm-2 col-form-label">Photo</label>
+						<div class="col-sm-10">
+							<input type="file" name="photo" id="photo" class="form-control">
 						</div>
 					</div>
 					<div class="form-group row align-items-center">

@@ -34,8 +34,17 @@ class Admin_model extends CI_Model
 
 	public function editKaryawan($id, $data)
 	{
-		$this->db->update('users', $data, ['users_id' => $id]);
+		$this->db->update('users', $data, ['nip' => $id]);
 		return $this->db->affected_rows();
+	}
+
+	function usersid($id)
+	{
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->join('jabatan', 'users.jabatan_id = jabatan.jabatan_id');
+		$this->db->where('users.nip', $id);
+		return $this->db->get();
 	}
 
 	public function cuti()
@@ -43,6 +52,16 @@ class Admin_model extends CI_Model
 		$this->db->select('*');
 		$this->db->from('cuti');
 		$this->db->join('users', 'cuti.nip = users.nip');
+		$this->db->order_by('cuti.id_cuti', 'desc');
+		return $this->db->get();
+	}
+
+	public function cuti_karyawan($id)
+	{
+		$this->db->select('*');
+		$this->db->from('cuti');
+		$this->db->join('users', 'cuti.nip = users.nip');
+		$this->db->where('users.nip', $id);
 		$this->db->order_by('cuti.id_cuti', 'desc');
 		return $this->db->get();
 	}

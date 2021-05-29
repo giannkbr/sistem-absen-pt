@@ -29,8 +29,8 @@
  								<td><?= ucfirst($users->jabatan_nama) ?></td>
  								<td> <small>Photo <a target="_blank" href="<?= base_url('images/users/' . $users->photo) ?>">Klik disini</a></small></td>
  								<td>
- 									<a href="<?= base_url('karyawan/editkaryawan/' . $users->users_id) ?>" class="btn btn-sm btn-primary btn-sm"><span class="fa fa-edit"></span></a>
- 									<a onclick="return confirm('Apakah anda yakin ingin menghapus data karyawan ini?')" href="<?= base_url('karyawan/deletekaryawan/' . $users->users_id) ?>" class="btn btn-sm btn-danger btn-sm"><span class="fa fa-trash"></span></a>
+ 									<a href="<?= base_url('karyawan/editkaryawan/' . $users->nip) ?>" class="btn btn-sm btn-primary btn-sm"><span class="fa fa-edit"></span></a>
+ 									<a onclick="return confirm('Apakah anda yakin ingin menghapus data karyawan ini?')" href="<?= base_url('karyawan/deletekaryawan/' . $users->nip) ?>" class="btn btn-sm btn-danger btn-sm"><span class="fa fa-trash"></span></a>
  								</td>
  							</tr>
  						<?php } ?>

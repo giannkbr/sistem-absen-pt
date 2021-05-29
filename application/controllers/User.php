@@ -20,6 +20,13 @@ class User extends CI_Controller
 		$bulan 			= date('m');
 		$hari 			= date('d');
 		$absen			= $this->user->absendaily($this->session->userdata('nip'), $tahun, $bulan, $hari);
+		$data = [
+			'title' => 'Dashboard',
+			'page' => 'user/index',
+			'subtitle' => 'Dashboard',
+			'subtitle2' => 'User',
+		];
+
 		if ($absen->num_rows() == 0) {
 			$data['waktu'] = 'masuk';
 		} elseif ($absen->num_rows() == 1) {
@@ -27,13 +34,6 @@ class User extends CI_Controller
 		} else {
 			$data['waktu'] = 'dilarang';
 		}
-
-		$data = [
-			'title' => 'Dashboard',
-			'page' => 'admin/dashboard/user',
-			'subtitle' => 'Dashboard',
-			'subtitle2' => 'User'
-		];
 
 		$this->load->view('templates/app', $data);
 	}
