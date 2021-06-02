@@ -106,16 +106,19 @@ class Karyawan extends CI_Controller
 	public function addkaryawan()
 	{
 
-		$this->form_validation->set_rules('nip', 'NIP', 'required|trim', [
-			'required' => 'Nomer Induk Pegawai tidak boleh kosong.'
+		$this->form_validation->set_rules('nip', 'NIP', 'required|trim|is_unique[users.nip]', [
+			'required'  => 'NIP tidak boleh kosong.',
+			'is_unique' => 'NIP sudah terdaftar.'
 		]);
 
 		$this->form_validation->set_rules('nama', 'Nama Karyawan', 'required|trim', [
 			'required' => 'Nama Karyawan tidak boleh kosong.'
 		]);
 
-		$this->form_validation->set_rules('email', 'Email', 'required|trim', [
-			'required' => 'Email tidak boleh kosong.'
+		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[users.email]', [
+			'required' 	  => 'Email tidak boleh kosong.',
+			'valid_email' => 'Email tidak valid',
+			'is_unique'	  => 'Email sudah terdaftar.'
 		]);
 
 		$this->form_validation->set_rules('password', 'Password', 'required|trim', [
@@ -155,8 +158,8 @@ class Karyawan extends CI_Controller
 			$data = [
 				'nip' => $this->input->post('nip'),
 				'nama' => $this->input->post('nama'),
-				'email' => $this->input->post('email'),
-				'password' => md5($this->input->post("password")),
+				'email' => strtolower($this->input->post('email')),
+				'password' => hashEncrypt($this->input->post('password')),
 				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
 				'role_id' => $this->input->post('role_id'),
 				'jabatan_id' => $this->input->post('jabatan'),
@@ -188,7 +191,7 @@ class Karyawan extends CI_Controller
 
 	public function deletekaryawan($id)
 	{
-		$this->db->delete('users', ['users_id' => $id]);
+		$this->db->delete('users', ['nip' => $id]);
 		$this->session->set_flashdata('message', 'swal("Berhasil!", "Data karyawan Berhasil Dihapus!", "success");');
 		redirect(base_url('data-karyawan'));
 	}
@@ -241,7 +244,28 @@ class Karyawan extends CI_Controller
 				'jabatan_id' => $this->input->post('jabatan')
 			];
 
-			$this->admin->editkaryawan($id, $data);
+			$oldPhoto = $this->input->post('ganti_gambar');
+			$path = './images/users/';
+			$config['upload_path'] 		= './images/users/';
+			$config['allowed_types'] 	= 'gif|jpg|png|jpeg';
+			$config['overwrite']  		= true;
+
+			$this->load->library('upload', $config);
+			// Jika foto diubah
+			if ($_FILES['photo']['name']) {
+				if ($this->upload->do_upload('photo')) {
+
+					@unlink($path . $oldPhoto);
+					if (!$this->upload->do_upload('photo')) {
+						$this->session->set_flashdata('message', 'swal("Ops!", "Photo gagal diupload", "error");');
+						redirect('edit-karyawan');
+					} else {
+						$newPhoto = $this->upload->data();
+						$data['photo'] = $newPhoto['file_name'];
+					}
+				}
+			}
+			$this->admin->editKaryawan($id, $data);
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Data Karyawan Berhasil Ditambahkan!", "success");');
 
 			redirect(base_url('data-karyawan'));

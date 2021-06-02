@@ -3,6 +3,7 @@
 		<div class="card m-b-30">
 			<div class="card-body">
 				<form action="<?= base_url('Karyawan/editkaryawan/' . $detail->nip) ?>" method="post">
+					<input type="hidden" id="ganti_gambar" value="<?= $detail->photo ?>" name="ganti_gambar" class="form-control" placeholder="Pas Photo">
 					<div class="form-group row">
 						<label for="nip" class="col-sm-2 col-form-label">Nomer Induk Pegawai</label>
 						<div class="col-sm-10">
@@ -51,6 +52,23 @@
 								<?php } ?>
 							</select>
 							<?= form_error('jabatan', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" for="pasphoto">Pas Photo</label>
+						<div class="col-sm-10">
+							<div class="list-group">
+								<?php if (!empty($detail)) : ?>
+									<img src="<?php echo base_url('images/users/' . $detail->photo) ?>" style="width: 200px; height: 200px;">
+								<?php else : ?>
+									<img src="<?php echo base_url('images/users/default.png') ?>" style="width: 200px; height: 200px;">
+								<?php endif ?>
+							</div>
+						</div>
+						<label class="col-sm-2 col-form-label" for="photo">Upload Pas Photo</label>
+						<div class="col-sm-10">
+							<input type="file" id="photo" name="photo" class="form-control" placeholder="Pas Photo">
+							<?= form_error('photo', '<span class="text-danger small">', '</span>'); ?>
 						</div>
 					</div>
 					<div class="form-group row">

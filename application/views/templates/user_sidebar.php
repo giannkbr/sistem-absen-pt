@@ -22,7 +22,18 @@
 							</li>
 						</ul>
 					</li>
-
+					<li class="has-submenu">
+						<a href="#"><i class="icon-pencil-ruler"></i> Laporan <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+						<ul class="submenu megamenu">
+							<li>
+								<ul>
+									<li><a href="<?= base_url('cetak-data-absensi'); ?>">Data Absensi</a></li>
+									<li><a href="<?= base_url('cetak-data-overtime'); ?>">Data Overtime</a></li>
+									<li><a href="<?= base_url('cetak-data-cuti'); ?>">Data Cuti</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
 
 				</ul>
 				<!-- End navigation menu -->
