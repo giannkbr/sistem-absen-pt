@@ -27,7 +27,7 @@
 							<li>
 								<ul>
 									<li><a href="<?= base_url('data-absensi'); ?>">Data Absensi</a></li>
-									<li><a href="ui-alerts.html">Data Overtime</a></li>
+									<li><a href="<?= base_url('data-overtime'); ?>">Data Overtime</a></li>
 									<li><a href="<?= base_url('data-cuti'); ?>">Data Cuti</a></li>
 								</ul>
 							</li>

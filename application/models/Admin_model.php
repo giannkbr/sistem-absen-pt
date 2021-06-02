@@ -65,6 +65,25 @@ class Admin_model extends CI_Model
 		$this->db->order_by('cuti.id_cuti', 'desc');
 		return $this->db->get();
 	}
+
+	public function overtime()
+	{
+		$this->db->select('*');
+		$this->db->from('overtime');
+		$this->db->join('users', 'overtime.nip = users.nip');
+		$this->db->order_by('overtime.id_overtime', 'desc');
+		return $this->db->get();
+	}
+
+	public function overtime_karyawan($id)
+	{
+		$this->db->select('*');
+		$this->db->from('overtime');
+		$this->db->join('users', 'overtime.nip = users.nip');
+		$this->db->where('users.nip', $id);
+		$this->db->order_by('overtime.id_overtime', 'desc');
+		return $this->db->get();
+	}
 }
 
 /* End of file ModelName.php */

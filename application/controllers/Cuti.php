@@ -118,6 +118,13 @@ class Cuti extends CI_Controller
 		$this->session->set_flashdata('message', 'swal("Berhasil!", "Pengajuan cuti", "success");');
 		redirect('data-cuti-karyawan');
 	}
+
+	public function delete_cuti($id)
+	{
+		$this->db->delete('cuti', ['id_cuti' => $id]);
+		$this->session->set_flashdata('message', 'swal("Berhasil!", "Data Cuti Berhasil Dihapus!", "success");');
+		redirect(base_url('data-cuti'));
+	}
 }
 
 /* End of file Cuti.php */
