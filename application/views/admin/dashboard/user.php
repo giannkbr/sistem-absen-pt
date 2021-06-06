@@ -13,7 +13,19 @@
 					<?php } else { ?>
 						<p class="text-center">Hai, <?= $this->session->userdata('nama') ?> anda hari ini sudah melakukan absensi <b>Masuk</b> dan <b>Pulang</b></p>
 					<?php }  ?>
+					<div class="form-groupow">
+						<label for="ket_kerja" class="col-sm-2 col-form-label">Keterangan Bekerja</label>
+						<div class="col-sm-10">
+							<select name="ket_kerja" class="form-control">
+								<option value="" selected="" disabled="">Pilih Keterangan</option>
+								<option value="1">WFO</option>
+								<option value="2">WFH</option>
+							</select>
+							<?= form_error('ket_kerja', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
+						</div>
+					</div>
 				</div>
+
 			</form>
 		</div>
 		</section>

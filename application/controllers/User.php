@@ -25,6 +25,7 @@ class User extends CI_Controller
 			'page' => 'user/index',
 			'subtitle' => 'Dashboard',
 			'subtitle2' => 'User',
+			'users' => $this->db->get('users')->result(),
 		];
 
 		if ($absen->num_rows() == 0) {
@@ -42,13 +43,34 @@ class User extends CI_Controller
 	{
 		$id = $this->session->userdata('nip');
 		$p = $this->input->post();
-		$data = [
-			'nip'	=> $id,
-			'keterangan' => $p['ket']
-		];
-		$this->db->insert('absen', $data);
-		$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen", "success");');
-		redirect('user');
+		$tahun 			= date('Y');
+		$bulan 			= date('m');
+		$hari 			= date('d');
+		$absen			= $this->user->absendaily($this->session->userdata('nip'), $tahun, $bulan, $hari);
+		if ($absen->num_rows() == 0) {
+			$data = [
+				'nip'	=> $id,
+				'keterangan' => $p['ket'],
+				'keterangan_kerja' => $p['keterangan_kerja'],
+				'maps_absen' => htmlspecialchars($this->input->post('maps_absen', true)),
+				'deskripsi' => $p['deskripsi'],
+			];
+			$this->db->insert('absen', $data);
+			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen", "success");');
+			redirect('user');
+		} elseif ($absen->num_rows() == 1) {
+			$data = [
+				'nip'	=> $id,
+				'keterangan' => $p['ket'],
+				'keterangan_kerja' => $p['keterangan_kerja'],
+				'maps_absen' => htmlspecialchars($this->input->post('maps_absen', true)),
+				'deskripsi' => $p['deskripsi'],
+				'deskripsi' => $p['deskripsi'],
+			];
+			$this->db->insert('absen', $data);
+			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen", "success");');
+			redirect('user');
+		}
 	}
 }
 

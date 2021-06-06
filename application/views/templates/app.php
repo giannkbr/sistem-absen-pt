@@ -24,7 +24,9 @@
 
 	<!-- Responsive datatable examples -->
 	<link href="<?= base_url('assets/') ?>plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-
+	<!-- Leaflet -->
+	<link href="<?= base_url('assets/'); ?>plugins/leaflet/leaflet.css" rel="stylesheet">
+	<script src="<?= base_url('assets/'); ?>plugins/leaflet/leaflet.js"></script>
 </head>
 
 <body>
