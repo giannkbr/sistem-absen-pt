@@ -84,3 +84,6 @@ $route['add-overtime-karyawan'] = 'Overtime/overtime_add';
 
 // Master Absensi User
 $route['data-absensi-user'] = 'Absen/getAbsenId/';
+
+// Master Laporan
+$route['rekap-absensi'] = 'Laporan';
