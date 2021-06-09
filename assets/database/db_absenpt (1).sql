@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 05, 2021 at 03:40 PM
+-- Generation Time: Jun 09, 2021 at 05:13 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -30,22 +30,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `absen` (
   `id_absen` int(11) NOT NULL,
   `nip` varchar(50) NOT NULL,
+  `nama` varchar(80) NOT NULL,
   `waktu` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `keterangan` varchar(100) NOT NULL
+  `keterangan` varchar(100) NOT NULL,
+  `keterangan_kerja` varchar(90) NOT NULL,
+  `maps_absen` varchar(90) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `status_absen` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `absen`
 --
 
-INSERT INTO `absen` (`id_absen`, `nip`, `waktu`, `keterangan`) VALUES
-(7, '2313', '2021-05-28 10:44:45', 'masuk'),
-(8, '2313', '2021-05-28 11:09:25', 'pulang'),
-(9, '2313', '2021-05-31 04:41:30', 'masuk'),
-(10, '2313', '2021-06-02 07:07:46', 'masuk'),
-(11, '2313', '2021-06-02 07:07:52', 'pulang'),
-(12, '12312', '2021-06-02 09:00:13', 'masuk'),
-(13, '2313', '2021-06-05 13:35:03', 'masuk');
+INSERT INTO `absen` (`id_absen`, `nip`, `nama`, `waktu`, `keterangan`, `keterangan_kerja`, `maps_absen`, `deskripsi`, `status_absen`) VALUES
+(32, '2313', 'Gian Akbar', '2021-06-06 22:16:47', 'masuk', '1', '', 'position.coords.latitude + \", \" + position.coords.longitude;', 0);
 
 -- --------------------------------------------------------
 
@@ -69,7 +68,8 @@ CREATE TABLE `cuti` (
 
 INSERT INTO `cuti` (`id_cuti`, `nip`, `jenis_cuti`, `bukti`, `alasan`, `status`, `waktu_pengajuan`) VALUES
 (5, '2313', 'sakit', 'w.png', 'sdad', 'diterima', '2021-05-28 15:07:42'),
-(6, '2313', 'sakit', 'w.png', 'sakit cok', 'diterima', '2021-05-28 15:08:20');
+(6, '2313', 'sakit', 'w.png', 'sakit cok', 'diterima', '2021-05-28 15:08:20'),
+(7, '2313', 'sakit', 'Resume.jpg', 'latitude=-6.2087634&longitude=106.84559899999999', 'diterima', '2021-06-06 19:52:39');
 
 -- --------------------------------------------------------
 
@@ -124,7 +124,8 @@ INSERT INTO `detailcuti` (`id_detail`, `id_cuti`, `tanggal`) VALUES
 (34, 6, '2021-05-30'),
 (35, 6, '2021-05-31'),
 (36, 6, '2021-06-01'),
-(37, 6, '2021-06-02');
+(37, 6, '2021-06-02'),
+(38, 7, '2021-06-29');
 
 -- --------------------------------------------------------
 
@@ -309,19 +310,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `absen`
 --
 ALTER TABLE `absen`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `cuti`
 --
 ALTER TABLE `cuti`
-  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `detailcuti`
 --
 ALTER TABLE `detailcuti`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `detailovertime`

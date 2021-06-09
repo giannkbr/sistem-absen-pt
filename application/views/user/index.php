@@ -31,7 +31,7 @@
 
 					var marker = L.marker(latLng).addTo(geolocationMap);
 					geolocationMap.setView(latLng);
-					document.getElementById("location-maps").innerHTML = position.coords.latitude + ", " + position.coords.longitude;
+					document.getElementById("location_maps").innerHTML = position.coords.latitude + ", " + position.coords.longitude;
 				},
 				function() {
 					geolocationErrorOccurred(true, popup, geolocationMap.getCenter());
@@ -43,8 +43,8 @@
 		}
 	};
 
-	document.getElementById("location-maps")
-	document.getElementById("location-maps").innerHTML = 'No Location';
+	document.getElementById("lokasi")
+	document.getElementById("lokasi").innerHTML = position.coords.latitude + ", " + position.coords.longitude;
 </script>
 
 <div class="row">
@@ -70,11 +70,12 @@
 						<div class="col-sm-12">
 							<div id='maps-absen' name="maps_absen" style='width: 100%; height:250px;'></div>
 							<hr>
-							<div id="location-maps" style="display: none;"></div>
+							<div id="location_maps" name="location_maps"></div>
+							<!-- <input type="text" id="lokasi" name="lokasi"> -->
 							<?= form_error('maps-absen', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
 						</div>
 					</div>
-					<div class="form-group row">
+					<div class=" form-group row">
 						<label for="keterangan_kerja" class="col-sm-2 col-form-label">Keterangan Bekerja</label>
 						<div class="col-sm-10">
 							<select name="keterangan_kerja" class="form-control">
@@ -90,6 +91,7 @@
 						<div class="col-sm-10">
 							<textarea name="deskripsi" id="" cols="50" rows="10"></textarea>
 							<?= form_error('deskripsi', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
+							<!-- 	 -->
 						</div>
 					</div>
 					<div class="form-group row">

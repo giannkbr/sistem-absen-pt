@@ -42,6 +42,7 @@ class User extends CI_Controller
 	public function proses_absen()
 	{
 		$id = $this->session->userdata('nip');
+		$nama = $this->session->userdata('nama');
 		$p = $this->input->post();
 		$tahun 			= date('Y');
 		$bulan 			= date('m');
@@ -50,25 +51,26 @@ class User extends CI_Controller
 		if ($absen->num_rows() == 0) {
 			$data = [
 				'nip'	=> $id,
+				'nama' => $nama,
 				'keterangan' => $p['ket'],
 				'keterangan_kerja' => $p['keterangan_kerja'],
-				'maps_absen' => htmlspecialchars($this->input->post('maps_absen', true)),
+				'maps_absen' => htmlspecialchars($this->input->post('location_maps', true)),
 				'deskripsi' => $p['deskripsi'],
 			];
 			$this->db->insert('absen', $data);
-			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen", "success");');
+			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen masuk", "success");');
 			redirect('user');
 		} elseif ($absen->num_rows() == 1) {
 			$data = [
 				'nip'	=> $id,
+				'nama' => $nama,
 				'keterangan' => $p['ket'],
 				'keterangan_kerja' => $p['keterangan_kerja'],
-				'maps_absen' => htmlspecialchars($this->input->post('maps_absen', true)),
-				'deskripsi' => $p['deskripsi'],
+				'maps_absen' => htmlspecialchars($this->input->post('location_maps', true)),
 				'deskripsi' => $p['deskripsi'],
 			];
 			$this->db->insert('absen', $data);
-			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen", "success");');
+			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen pulang", "success");');
 			redirect('user');
 		}
 	}
