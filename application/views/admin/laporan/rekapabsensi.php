@@ -12,9 +12,9 @@
 							<th>Cuti</th>
 							<th>Izin</th>
 							<th>Sakit</th>
+							<th>Overtime</th>
 						</tr>
 					</thead>
-
 					<tbody>
 						<?php
 
@@ -29,6 +29,9 @@
 							$sakit  = $this->absen->sakitbulan($data->nip, $tahun, $bulan)->num_rows();
 							$izin   = $this->absen->izinbulan($data->nip, $tahun, $bulan)->num_rows();
 
+							$overtime   = $this->absen->overtimebulan($data->nip, $tahun, $bulan)->num_rows();
+							//var_dump($cuti);
+							//hitung hari cuti
 						?>
 							<tr>
 								<td width="1%"><?= $no++ ?></td>
@@ -38,10 +41,12 @@
 								<td><?= $cuti ?></td>
 								<td><?= $izin ?></td>
 								<td><?= $sakit ?></td>
+								<td><?= $overtime ?></td>
 							</tr>
 						<?php } ?>
 					</tbody>
 				</table>
+
 			</div>
 		</div>
 	</div> <!-- end col -->

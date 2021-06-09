@@ -39,8 +39,6 @@
 							<li>
 								<ul>
 									<li><a href="<?= base_url('rekap-absensi'); ?>">Data Absensi</a></li>
-									<li><a href="<?= base_url('cetak-data-overtime'); ?>">Data Overtime</a></li>
-									<li><a href="<?= base_url('cetak-data-cuti'); ?>">Data Cuti</a></li>
 								</ul>
 							</li>
 						</ul>

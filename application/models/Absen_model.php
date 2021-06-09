@@ -3,7 +3,33 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Absen_model extends CI_Model
 {
-
+	function absendaily($id, $tahun, $bulan, $hari)
+	{
+		$this->db->select('*');
+		$this->db->from('absen');
+		$this->db->where('nip', $id);
+		$this->db->where('year(waktu)', $tahun);
+		$this->db->where('month(waktu)', $bulan);
+		$this->db->where('day(waktu)', $hari);
+		return $this->db->get();
+	}
+	public function absendata()
+	{
+		$this->db->select('*');
+		$this->db->from('absen');
+		$this->db->join('users', 'absen.nip = users.nip');
+		$this->db->order_by('absen.waktu', 'desc');
+		return $this->db->get();
+	}
+	public function absensi_users($id)
+	{
+		$this->db->select('*');
+		$this->db->from('absen');
+		$this->db->join('users', 'absen.nip = users.nip');
+		$this->db->where('users.nip', $id);
+		$this->db->order_by('absen.waktu', 'desc');
+		return $this->db->get();
+	}
 	public function getAbsenByid($id)
 	{
 		$this->db->select('*');
@@ -32,6 +58,19 @@ class Absen_model extends CI_Model
 		$this->db->join('detailcuti', 'cuti.id_cuti = detailcuti.id_cuti');
 		$this->db->where('nip', $id);
 		$this->db->where('jenis_cuti', 'cuti');
+		$this->db->where('status', 'diterima');
+		$this->db->where('year(tanggal)', $tahun);
+		$this->db->where('month(tanggal)', $bulan);
+		return $this->db->get();
+	}
+
+	function overtimebulan($id, $tahun, $bulan)
+	{
+
+		$this->db->select('* ');
+		$this->db->from('overtime');
+		$this->db->join('detailovertime', 'overtime.id_overtime = detailovertime.id_overtime');
+		$this->db->where('nip', $id);
 		$this->db->where('status', 'diterima');
 		$this->db->where('year(tanggal)', $tahun);
 		$this->db->where('month(tanggal)', $bulan);
@@ -96,6 +135,19 @@ class Absen_model extends CI_Model
 		$this->db->from('cuti');
 		$this->db->join('detailcuti', 'cuti.id_cuti = detailcuti.id_cuti');
 		$this->db->where('jenis_cuti', 'sakit');
+		$this->db->where('status', 'diterima');
+		$this->db->where('year(tanggal)', $tahun);
+		$this->db->where('month(tanggal)', $bulan);
+		$this->db->where('day(tanggal)', $hari);
+		return $this->db->get();
+	}
+
+
+	function overtimetoday($tahun, $bulan, $hari)
+	{
+		$this->db->select('*');
+		$this->db->from('overtime');
+		$this->db->join('detailovertime', 'overtime.id_overtime = detailovertime.id_overtime');
 		$this->db->where('status', 'diterima');
 		$this->db->where('year(tanggal)', $tahun);
 		$this->db->where('month(tanggal)', $bulan);
