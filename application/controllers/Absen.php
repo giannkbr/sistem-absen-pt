@@ -26,6 +26,20 @@ class Absen extends CI_Controller
 
 		$this->load->view('templates/app', $data, FALSE);
 	}
+
+
+	public function getAbsenId($id)
+	{
+		$data = [
+			'title' => 'Data Absensi',
+			'page' => 'user/absensi/dataabsensi',
+			'subtitle' => 'User',
+			'subtitle2' => 'Data Absensi',
+			'data' => $this->absen->getAbsenById($id)
+		];
+
+		$this->load->view('templates/app', $data, FALSE);
+	}
 }
 
 /* End of file Absen.php */

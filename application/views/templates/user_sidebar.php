@@ -15,7 +15,7 @@
 						<ul class="submenu megamenu">
 							<li>
 								<ul>
-									<li><a href="ui-alerts.html">Data Absensi</a></li>
+									<li><a href="<?= base_url('Absen/getAbsenId/' . $this->session->userdata('nip')) ?>">Data Absensi</a></li>
 									<li><a href="<?= base_url('data-overtime-karyawan'); ?>">Data Overtime</a></li>
 									<li><a href="<?= base_url('data-cuti-karyawan'); ?>">Data Cuti</a></li>
 								</ul>

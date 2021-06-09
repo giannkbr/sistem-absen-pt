@@ -12,6 +12,15 @@ class Absen_model extends CI_Model
 		$this->db->order_by('absen.waktu', 'desc');
 		return $this->db->get();
 	}
+
+	public function getAbsenByid($id)
+	{
+		$this->db->select('*');
+		$this->db->from('absen');
+		$this->db->join('users', 'absen.nip = users.nip');
+		$this->db->where('users.nip', $id);
+		return $this->db->get()->result();
+	}
 }
 
 /* End of file ModelName.php */
