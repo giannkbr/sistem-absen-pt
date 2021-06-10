@@ -1,5 +1,9 @@
 <div class="row">
 	<div class="col-12">
+		<h2><?= $bulan,' ', $tahun ?></h2>
+		<form method="POST" id="myForm" action="<?= base_url('rekap-absensi-filter') ?>" enctype="multipart/form-data">
+		<input type="month" name="date">
+		<button type="submit" class="btn btn-primary">Filter</button>
 		<div class="card m-b-30">
 			<div class="card-body">
 				<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -20,8 +24,6 @@
 
 						$no = 1;
 						foreach ($data as $data) {
-							$tahun  = date('Y');
-							$bulan  = date('m');
 							$jumlah = 0;
 							$stotal = 0;
 							$absen  = $this->absen->absenbulan($data->nip, $tahun, $bulan)->num_rows();

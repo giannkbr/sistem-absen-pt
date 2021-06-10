@@ -87,3 +87,4 @@ $route['data-absensi-user'] = 'Absen/getAbsenId/';
 
 // Master Laporan
 $route['rekap-absensi'] = 'Laporan';
+$route['rekap-absensi-filter'] = 'Laporan/laporanfilter';
