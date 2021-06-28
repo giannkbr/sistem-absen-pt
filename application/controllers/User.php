@@ -43,6 +43,7 @@ class User extends CI_Controller
 	{
 		$id = $this->session->userdata('nip');
 		$nama = $this->session->userdata('nama');
+		$now = date('Y-m-d H:i:s');
 		$p = $this->input->post();
 		$tahun 			= date('Y');
 		$bulan 			= date('m');
@@ -62,14 +63,12 @@ class User extends CI_Controller
 			redirect('user');
 		} elseif ($absen->num_rows() == 1) {
 			$data = [
-				'nip'	=> $id,
 				'nama' => $nama,
 				'keterangan' => $p['ket'],
-				'keterangan_kerja' => $p['keterangan_kerja'],
-				'maps_absen' => htmlspecialchars($this->input->post('location_maps', true)),
+				'waktu_pulang' => $now,
 				'deskripsi' => $p['deskripsi'],
 			];
-			$this->db->insert('absen', $data);
+			$this->db->update('absen', $data, $id);
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen pulang", "success");');
 			redirect('user');
 		}

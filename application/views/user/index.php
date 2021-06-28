@@ -80,8 +80,8 @@
 						<div class="col-sm-10">
 							<select name="keterangan_kerja" class="form-control">
 								<option value="" selected="" disabled="">Pilih Keterangan</option>
-								<option value="1">WFO</option>
-								<option value="2">WFH</option>
+								<option value="WFO">WFO</option>
+								<option value="WFH">WFH</option>
 							</select>
 							<?= form_error('keterangan_kerja', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
 						</div>

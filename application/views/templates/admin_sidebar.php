@@ -22,26 +22,19 @@
 						</ul>
 					</li>
 					<li class="has-submenu">
-						<a href="#"><i class="icon-pencil-ruler"></i> Master Absensi <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+						<a href="#"><i class="icon-pencil-ruler"></i> Rekap Data <i class="mdi mdi-chevron-down mdi-drop"></i></a>
 						<ul class="submenu megamenu">
 							<li>
 								<ul>
-									<li><a href="<?= base_url('data-absensi'); ?>">Data Absensi</a></li>
-									<li><a href="<?= base_url('data-overtime'); ?>">Data Overtime</a></li>
-									<li><a href="<?= base_url('data-cuti'); ?>">Data Cuti</a></li>
+									<li><a href="<?= base_url('data-absensi'); ?>">Rekap Data Absensi</a></li>
+									<li><a href="<?= base_url('data-overtime'); ?>">Rekap Data Overtime</a></li>
+									<li><a href="<?= base_url('data-cuti'); ?>">Rakap Data Cuti</a></li>
 								</ul>
 							</li>
 						</ul>
 					</li>
 					<li class="has-submenu">
-						<a href="#"><i class="icon-pencil-ruler"></i> Laporan <i class="mdi mdi-chevron-down mdi-drop"></i></a>
-						<ul class="submenu megamenu">
-							<li>
-								<ul>
-									<li><a href="<?= base_url('rekap-absensi'); ?>">Data Absensi</a></li>
-								</ul>
-							</li>
-						</ul>
+						<a href="<?= base_url('rekap-absensi'); ?>"><i class="icon-pencil-ruler"></i> Laporan </a>
 					</li>
 				</ul>
 				<!-- End navigation menu -->

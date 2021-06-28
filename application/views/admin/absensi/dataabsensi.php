@@ -6,8 +6,10 @@
  					<thead>
  						<th>Nomor</th>
  						<th>Nama</th>
- 						<th>Waktu</th>
- 						<th>Keterangan</th>
+ 						<th>Waktu Masuk</th>
+ 						<th>Waktu Pulang</th>
+ 						<th>Keterangan Kerja</th>
+ 						<th>Deskripsi Kegiatan</th>
  					</thead>
  					<tbody>
  						<?php $no = 1;
@@ -16,7 +18,9 @@
  								<td width="1%"><?= $no++ ?></td>
  								<td><?= ucfirst($d->nama) ?></td>
  								<td><?= ucfirst($d->waktu) ?></td>
- 								<td><?= ucfirst($d->keterangan) ?></td>
+ 								<td><?= ucfirst($d->waktu_pulang) ?></td>
+ 								<td><?= ucfirst($d->keterangan_kerja) ?></td>
+ 								<td><?= ucfirst($d->deskripsi) ?></td>
  							</tr>
  						<?php } ?>
  					</tbody>

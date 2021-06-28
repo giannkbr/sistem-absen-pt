@@ -41,7 +41,7 @@
 					<div>
 						<a href="index.html" class="logo">
 							<span class="logo-light">
-								<i class="mdi mdi-camera-control"></i> E - Absensi
+								<i class="mdi mdi-camera-control"></i> E - Absensi PT.UNISISTAMA MEGAH
 							</span>
 						</a>
 					</div>

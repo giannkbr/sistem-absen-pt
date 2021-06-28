@@ -28,7 +28,7 @@
 				<div class="text-center m-t-0 m-b-15">
 					<a href="index.html" class="logo logo-admin"><img src="<?= base_url('assets/') ?>assets/images/logo-dark.png" alt="" height="24"></a>
 				</div>
-				<h5 class="font-18 text-center">Login <br> E-Absensi PT.</h5>
+				<h5 class="font-18 text-center">Login <br> E - Absensi PT.UNISISTAMA MEGAH</h5>
 
 
 
@@ -49,7 +49,7 @@
 						</div>
 					</div>
 
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<div class="col-12">
 							<div class="checkbox checkbox-primary">
 								<div class="custom-control custom-checkbox">
@@ -58,7 +58,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="form-group text-center m-t-20">
 						<div class="col-12">
@@ -67,7 +67,7 @@
 						</div>
 					</div>
 
-					<div class="form-group row m-t-30 m-b-0">
+					<!-- <div class="form-group row m-t-30 m-b-0">
 						<div class="col-sm-7">
 							<a href="<?php base_url('auth/change_password') ?>" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot
 								your password?</a>
@@ -75,7 +75,7 @@
 						<div class="col-sm-5 text-right">
 							<a href="pages-register.html" class="text-muted">Create an account</a>
 						</div>
-					</div>
+					</div> -->
 				</form>
 			</div>
 

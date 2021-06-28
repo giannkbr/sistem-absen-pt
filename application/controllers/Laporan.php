@@ -40,8 +40,8 @@ class Laporan extends CI_Controller
 			'page' => 'admin/laporan/rekapabsensi',
 			'subtitle' => 'Admin',
 			'subtitle2' => 'Data Rekap',
-			'bulan' => date_format( date_create($date), 'm' ),
-			'tahun' => date_format( date_create($date), 'Y' ),
+			'bulan' => date_format(date_create($date), 'm'),
+			'tahun' => date_format(date_create($date), 'Y'),
 			'data' => $this->admin->karyawan()->result()
 		];
 
