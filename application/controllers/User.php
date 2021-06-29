@@ -23,7 +23,7 @@ class User extends CI_Controller
 			'page' => 'user/index',
 			'subtitle' => 'Dashboard',
 			'subtitle2' => 'User',
-			'users' => $this->db->get('mahasiswa')->result(),
+			'users' => $this->db->get('users')->result(),
 		];
 
 		if ($absen->num_rows() == 0) {
@@ -53,7 +53,7 @@ class User extends CI_Controller
 				'keterangan' => $p['ket'],
 				'jam_masuk' => date('G:i:s'),
 				'keterangan_kerja' => $p['keterangan_kerja'],
-				'maps_absen' => $p['location_maps']
+				// 'maps_absen' => $p['maps-absen']
 			];
 			$this->db->insert('absen', $data);
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen masuk", "success");');
@@ -66,7 +66,7 @@ class User extends CI_Controller
 				'deskripsi' => $p['deskripsi'],
 			];
 			$this->db->update('absen', $data);
-			$this->db->where('nip', $data);
+			$this->db->where('nip', $data); // hrse ambil id_absen
 
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen pulang", "success");');
 			redirect('user');

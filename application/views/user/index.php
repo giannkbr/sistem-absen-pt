@@ -42,9 +42,6 @@
 			geolocationErrorOccurred(false, popup, geolocationMap.getCenter());
 		}
 	};
-
-	document.getElementById("lokasi")
-	document.getElementById("lokasi").innerHTML = position.coords.latitude + ", " + position.coords.longitude;
 </script>
 
 <div class="row">
@@ -52,26 +49,26 @@
 	<div class="col-sm-12 col-xl-12">
 		<!-- Map card -->
 		<div class="card">
-			<div class="card-header"> Notifikasi </h3>
+			<div class="card-header">
+				<h3>Notifikasi</h3>
 			</div>
-			<form method="post" action="<?= base_url('user/proses_absen'); ?>">
+			<form method="post" action="<?= base_url('user/proses_absen') ?>">
 				<div class="card-body">
 					<div class="form-group row">
 						<div class="col-sm-10">
 							<?php if ($waktu != 'dilarang') { ?>
-								<h4>Hai, <?= $this->session->userdata('nama') ?> Anda hari ini belum melakukan absen <b><?= $waktu ?></b>.
+								<h3>Hai, <?= $this->session->userdata('nama') ?> Anda hari ini belum melakukan Absen <b><?= $waktu ?></b>.
 									<input type="hidden" name="ket" id="ket" value="<?= $waktu ?>">
 								<?php } else { ?>
-									<h4>Hai, <?= $this->session->userdata('nama') ?> anda hari ini sudah melakukan absensi <b>Masuk</b> dan <b>Pulang</b></h4>
+									<h3>Hai, <?= $this->session->userdata('nama') ?> Anda hari ini sudah melakukan Absensi <b>Masuk</b> dan <b>Pulang</b></h3>
 								<?php }  ?>
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-12">
-							<div id='maps-absen' name="maps_absen" style='width: 100%; height:250px;'></div>
+							<div id='maps-absen' name="maps-absen" style='width: 100%; height:250px;'></div>
 							<hr>
-							<div id="location_maps" name="location_maps"></div>
-							<!-- <input type="text" id="lokasi" name="lokasi"> -->
+							<!-- <input id="location_maps" name="location_maps"></input> -->
 							<?= form_error('maps-absen', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
 						</div>
 					</div>
@@ -80,22 +77,22 @@
 						<div class="col-sm-10">
 							<select name="keterangan_kerja" class="form-control">
 								<option value="" selected="" disabled="">Pilih Keterangan</option>
-								<option value="WFO">WFO</option>
-								<option value="WFH">WFH</option>
+								<option value="1">WFO</option>
+								<option value="2">WFH</option>
 							</select>
 							<?= form_error('keterangan_kerja', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="deskripsi" class="col-sm-2 col-form-label">Deskripsi Pekerjaan</label>
-						<div class="col-sm-10" onchange="myFunction()">
-							<textarea name="deskripsi" id="deskripsi" cols="50" rows="10"></textarea>
+						<div class="col-sm-10">
+							<textarea name="deskripsi" id="" cols="50" rows="10"></textarea>
 							<?= form_error('deskripsi', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-10">
-							<h5>Silahkan lakukan absen pada tombol absen berikut </h5>
+							<h3>Silahkan lakukan absen pada tombol absen berikut </h3>
 							<button class="btn btn-primary" id="btn-absensi">Absen <?= $waktu ?></button></h4>
 						</div>
 					</div>
@@ -106,12 +103,3 @@
 		</section>
 	</div>
 </div>
-<script>
-	function myFunction() {
-		if ($waktu == 'masuk') {
-			document.getElementById("deskripsi").disabled = false;
-		} else {
-			document.getElementById("deskripsi").disabled = true;
-		}
-	}
-</script>
