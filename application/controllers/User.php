@@ -1,6 +1,4 @@
 <?php
-
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class User extends CI_Controller
@@ -10,7 +8,7 @@ class User extends CI_Controller
 	{
 		parent::__construct();
 		is_login();
-		date_default_timezone_set('asia/jakarta');
+		date_default_timezone_set('Asia/Jakarta');
 		$this->load->model('User_model', 'user');
 	}
 
@@ -25,7 +23,7 @@ class User extends CI_Controller
 			'page' => 'user/index',
 			'subtitle' => 'Dashboard',
 			'subtitle2' => 'User',
-			'users' => $this->db->get('users')->result(),
+			'users' => $this->db->get('mahasiswa')->result(),
 		];
 
 		if ($absen->num_rows() == 0) {
@@ -43,7 +41,6 @@ class User extends CI_Controller
 	{
 		$id = $this->session->userdata('nip');
 		$nama = $this->session->userdata('nama');
-		$now = date('Y-m-d H:i:s');
 		$p = $this->input->post();
 		$tahun 			= date('Y');
 		$bulan 			= date('m');
@@ -54,21 +51,23 @@ class User extends CI_Controller
 				'nip'	=> $id,
 				'nama' => $nama,
 				'keterangan' => $p['ket'],
+				'jam_masuk' => date('G:i:s'),
 				'keterangan_kerja' => $p['keterangan_kerja'],
-				'maps_absen' => htmlspecialchars($this->input->post('location_maps', true)),
-				'deskripsi' => $p['deskripsi'],
+				'maps_absen' => $p['location_maps']
 			];
 			$this->db->insert('absen', $data);
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen masuk", "success");');
 			redirect('user');
 		} elseif ($absen->num_rows() == 1) {
 			$data = [
-				'nama' => $nama,
+				'nip'	=> $id,
 				'keterangan' => $p['ket'],
-				'waktu_pulang' => $now,
+				'jam_pulang' => date('G:i:s'),
 				'deskripsi' => $p['deskripsi'],
 			];
-			$this->db->update('absen', $data, $id);
+			$this->db->update('absen', $data);
+			$this->db->where('nip', $data);
+
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen pulang", "success");');
 			redirect('user');
 		}

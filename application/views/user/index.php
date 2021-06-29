@@ -88,10 +88,9 @@
 					</div>
 					<div class="form-group row">
 						<label for="deskripsi" class="col-sm-2 col-form-label">Deskripsi Pekerjaan</label>
-						<div class="col-sm-10">
-							<textarea name="deskripsi" id="" cols="50" rows="10"></textarea>
+						<div class="col-sm-10" onchange="myFunction()">
+							<textarea name="deskripsi" id="deskripsi" cols="50" rows="10"></textarea>
 							<?= form_error('deskripsi', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
-							<!-- 	 -->
 						</div>
 					</div>
 					<div class="form-group row">
@@ -107,3 +106,12 @@
 		</section>
 	</div>
 </div>
+<script>
+	function myFunction() {
+		if ($waktu == 'masuk') {
+			document.getElementById("deskripsi").disabled = false;
+		} else {
+			document.getElementById("deskripsi").disabled = true;
+		}
+	}
+</script>

@@ -228,6 +228,15 @@ class Absen_model extends CI_Model
 		$this->db->where('day(waktu)', $hari);
 		return $this->db->get();
 	}
+
+	public function printabsensi($id)
+	{
+		$this->db->select('*');
+		$this->db->from('absen');
+		$this->db->where('absen.id_absen', $id);
+		return $this->db->get()->result();
+	}
+
 }
 
 /* End of file ModelName.php */

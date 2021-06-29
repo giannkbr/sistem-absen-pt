@@ -37,6 +37,14 @@ class Admin_model extends CI_Model
 		$this->db->update('users', $data, ['nip' => $id]);
 		return $this->db->affected_rows();
 	}
+	
+	public function printabsensi($id)
+	{
+		$this->db->select('*');
+		$this->db->from('absen');
+		$this->db->where('absen.id_absen', $id);
+		return $this->db->get()->result();
+	}
 
 	function usersid($id)
 	{
