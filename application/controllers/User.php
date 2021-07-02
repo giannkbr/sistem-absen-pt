@@ -14,10 +14,9 @@ class User extends CI_Controller
 
 	public function index()
 	{
-		$tahun 			= date('Y');
-		$bulan 			= date('m');
-		$hari 			= date('d');
-		$absen			= $this->user->absendaily($this->session->userdata('nip'), $tahun, $bulan, $hari);
+		$tgl = date('Y-m-d');
+		$absen			= $this->user->absendaily($this->session->userdata('nip'), $tgl);
+		$absen1			= $this->user->absendaily($this->session->userdata('nip'), $tgl)->row();
 		$data = [
 			'title' => 'Dashboard',
 			'page' => 'user/index',
@@ -28,9 +27,9 @@ class User extends CI_Controller
 
 		if ($absen->num_rows() == 0) {
 			$data['waktu'] = 'masuk';
-		} elseif ($absen->num_rows() == 1) {
+		} elseif ($absen1->keterangan == 'masuk') {
 			$data['waktu'] = 'pulang';
-		} else {
+		} elseif($absen1->keterangan == 'pulang') {
 			$data['waktu'] = 'dilarang';
 		}
 
@@ -42,18 +41,20 @@ class User extends CI_Controller
 		$id = $this->session->userdata('nip');
 		$nama = $this->session->userdata('nama');
 		$p = $this->input->post();
+		$tgl = date('Y-m-d');
 		$tahun 			= date('Y');
 		$bulan 			= date('m');
 		$hari 			= date('d');
-		$absen			= $this->user->absendaily($this->session->userdata('nip'), $tahun, $bulan, $hari);
+		$absen			= $this->user->absendaily($this->session->userdata('nip'), $tgl);
 		if ($absen->num_rows() == 0) {
 			$data = [
 				'nip'	=> $id,
 				'nama' => $nama,
+				'waktu' => $tgl,
 				'keterangan' => $p['ket'],
 				'jam_masuk' => date('G:i:s'),
 				'keterangan_kerja' => $p['keterangan_kerja'],
-				// 'maps_absen' => $p['maps-absen']
+				'maps_absen' => $p['location_maps']
 			];
 			$this->db->insert('absen', $data);
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen masuk", "success");');
@@ -65,8 +66,10 @@ class User extends CI_Controller
 				'jam_pulang' => date('G:i:s'),
 				'deskripsi' => $p['deskripsi'],
 			];
-			$this->db->update('absen', $data);
-			$this->db->where('nip', $data); // hrse ambil id_absen
+			
+			$this->db->where('nip', $id);
+			$this->db->where('waktu',$tgl);
+			$this->db->update('absen', $data); // hrse ambil id_absen
 
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen pulang", "success");');
 			redirect('user');
