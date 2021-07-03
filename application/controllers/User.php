@@ -46,7 +46,7 @@ class User extends CI_Controller
 		$bulan 			= date('m');
 		$hari 			= date('d');
 		$absen			= $this->user->absendaily($this->session->userdata('nip'), $tgl);
-		if ($absen->num_rows() == 0 && date('G:i:s') >= '08:00:00' && date('G:i:s') <= '09:00:00') {
+		if ($absen->num_rows() == 0 && date('G:i:s') >= '08:00:00' && date('G:i:s') <= '09:00:00') { //Jika Tepat Waktu
 			$data = [
 				'nip'	=> $id,
 				'nama' => $nama,
@@ -67,12 +67,23 @@ class User extends CI_Controller
 		// 	redirect($_SERVER['HTTP_REFERER']);
 
 		// }
-		elseif ($absen->num_rows() == 0 && date('G:i:s') >= '09:00:00' {
+		elseif ($absen->num_rows() == 0 && date('G:i:s') >= '09:00:00') { //Jika Terlambat
 
-			$this->session->set_flashdata('message', 'swal("Gagal!", "Anda Terlambat", "warning");');
+			$data = [
+				'nip'	=> $id,
+				'nama' => $nama,
+				'waktu' => $tgl,
+				'keterangan' => $p['ket'],
+				'jam_masuk' => date('G:i:s'),
+				'keterangan_kerja' => 'Terlambat',
+				'maps_absen' => $p['location_maps']
+			];
+			$this->db->insert('absen', $data);
+
+			$this->session->set_flashdata('message', 'swal("Berhasil!", "Anda Terlambat", "warning");');
 			redirect($_SERVER['HTTP_REFERER']);
 
-		}elseif ($absen->num_rows() == 1 && date('G:i:s') >= '16:00:00' {
+		}elseif ($absen->num_rows() == 1 && date('G:i:s') >= '16:00:00') { //Absen Pulang
 			$data = [
 				'nip'	=> $id,
 				'keterangan' => $p['ket'],
@@ -87,7 +98,7 @@ class User extends CI_Controller
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen pulang", "success");');
 			redirect('user');
 
-		}elseif ($absen->num_rows() == 1 && date('G:i:s') <= '16:00:00') {
+		}elseif ($absen->num_rows() == 1 && date('G:i:s') <= '16:00:00') { //Jika Belum Waktu Pulang
 			$this->session->set_flashdata('message', 'swal("GAGAL!", "Belum Bisa Absen Pulang", "warning");');
 			redirect($_SERVER['HTTP_REFERER']);
             return false;
