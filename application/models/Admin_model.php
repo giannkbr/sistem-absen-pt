@@ -92,6 +92,14 @@ class Admin_model extends CI_Model
 		$this->db->order_by('overtime.id_overtime', 'desc');
 		return $this->db->get();
 	}
+
+	public function karyawanId($id)
+	{
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where('users.nip', $id);
+		return $this->db->get()->result();
+	}
 }
 
 /* End of file ModelName.php */

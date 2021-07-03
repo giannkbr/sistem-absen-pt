@@ -25,6 +25,8 @@ class Admin extends CI_Controller
 
 		$this->load->view('templates/app', $data);
 	}
+ 	
+ 	
 }
 
 /* End of file Admin.php */
