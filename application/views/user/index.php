@@ -64,6 +64,7 @@
 									<h3>Hai, <?= $this->session->userdata('nama') ?> Anda hari ini sudah melakukan Absensi <b>Masuk</b> dan <b>Pulang</b></h3>
 								<?php }  ?>
 							</div>
+							<?= date('G:i:s') ?>
 						</div>
 						<div class="form-group row">
 							<div class="col-sm-12">

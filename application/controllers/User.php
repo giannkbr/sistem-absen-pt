@@ -27,7 +27,7 @@ class User extends CI_Controller
 
 		if ($absen->num_rows() == 0) {
 			$data['waktu'] = 'masuk';
-		} elseif ($absen1->keterangan == 'masuk') {
+		} elseif ($absen1->keterangan == 'masuk' || $absen1->keterangan == 'terlambat') {
 			$data['waktu'] = 'pulang';
 		} elseif($absen1->keterangan == 'pulang') {
 			$data['waktu'] = 'dilarang';
@@ -46,7 +46,7 @@ class User extends CI_Controller
 		$bulan 			= date('m');
 		$hari 			= date('d');
 		$absen			= $this->user->absendaily($this->session->userdata('nip'), $tgl);
-		if ($absen->num_rows() == 0) {
+		if ($absen->num_rows() == 0 && date('G:i:s') >= '08:00:00' && date('G:i:s') <= '09:00:00') {
 			$data = [
 				'nip'	=> $id,
 				'nama' => $nama,
@@ -59,7 +59,20 @@ class User extends CI_Controller
 			$this->db->insert('absen', $data);
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen masuk", "success");');
 			redirect('user');
-		} elseif ($absen->num_rows() == 1) {
+
+		}
+		// elseif ($absen->num_rows() == 0 && date('G:i:s') < '06:00:00') {
+
+		// 	$this->session->set_flashdata('message', 'swal("Gagal!", "Belum Waktu Masuk", "warning");');
+		// 	redirect($_SERVER['HTTP_REFERER']);
+
+		// }
+		elseif ($absen->num_rows() == 0 && date('G:i:s') >= '09:00:00' {
+
+			$this->session->set_flashdata('message', 'swal("Gagal!", "Anda Terlambat", "warning");');
+			redirect($_SERVER['HTTP_REFERER']);
+
+		}elseif ($absen->num_rows() == 1 && date('G:i:s') >= '16:00:00' {
 			$data = [
 				'nip'	=> $id,
 				'keterangan' => $p['ket'],
@@ -73,7 +86,17 @@ class User extends CI_Controller
 
 			$this->session->set_flashdata('message', 'swal("Berhasil!", "Melakukan absen pulang", "success");');
 			redirect('user');
+
+		}elseif ($absen->num_rows() == 1 && date('G:i:s') <= '16:00:00') {
+			$this->session->set_flashdata('message', 'swal("GAGAL!", "Belum Bisa Absen Pulang", "warning");');
+			redirect($_SERVER['HTTP_REFERER']);
+            return false;
 		}
+		// else{
+		// 	$this->session->set_flashdata('message', 'swal("GAGAL!", "Belum Bisa Absen Masuk, Silahkan Absen Jam 8", "warning");');
+		// 	redirect($_SERVER['HTTP_REFERER']);
+  //           return false;
+		// }
 	}
 }
 
