@@ -14,7 +14,8 @@
 								<th>No</th>
 								<th>NIP</th>
 								<th>Nama</th>
-								<th>Hadir</th>
+								<th>Hadir WFH</th>
+								<th>Hadir WFO</th>
 								<th>Cuti</th>
 								<th>Izin</th>
 								<th>Sakit</th>
@@ -29,6 +30,7 @@
 								$jumlah = 0;
 								$stotal = 0;
 								$absen  = $this->absen->absenbulan($data->nip, $tahun, $bulan)->num_rows();
+								$absenwfh  = $this->absen->absenwfh($data->nip, $tahun, $bulan)->num_rows();
 								$cuti   = $this->absen->cutibulan($data->nip, $tahun, $bulan)->num_rows();
 								$sakit  = $this->absen->sakitbulan($data->nip, $tahun, $bulan)->num_rows();
 								$izin   = $this->absen->izinbulan($data->nip, $tahun, $bulan)->num_rows();
@@ -42,6 +44,7 @@
 									<td><?= ucfirst($data->nip) ?></td>
 									<td><?= ucfirst($data->nama) ?></td>
 									<td><?= $absen ?></td>
+									<td><?= $absenwfh ?></td>
 									<td><?= $cuti ?></td>
 									<td><?= $izin ?></td>
 									<td><?= $sakit ?></td>

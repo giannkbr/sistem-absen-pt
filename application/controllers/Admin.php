@@ -11,7 +11,7 @@ class Admin extends CI_Controller
 		parent::__construct();
 		is_login();
 		is_admin();
-		// $this->load->model('admin_model', 'admin');
+		$this->load->model('admin_model', 'admin');
 	}
 
 	public function index()
@@ -20,13 +20,12 @@ class Admin extends CI_Controller
 			'title' => 'Dashboard',
 			'page' => 'admin/dashboard/index',
 			'subtitle' => 'Dashboard',
-			'subtitle2' => 'Index'
+			'subtitle2' => 'Index',
+			'data' => $this->admin->karyawan()->result()
 		];
 
 		$this->load->view('templates/app', $data);
 	}
- 	
- 	
 }
 
 /* End of file Admin.php */

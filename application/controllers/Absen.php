@@ -18,33 +18,32 @@ class Absen extends CI_Controller
 	public function index()
 	{
 		$data = [
-			'title' => 'Data Absensi',
-			'page' => 'admin/absensi/dataabsensi',
+			'title' => 'Data Karyawan',
+			'page' => 'admin/absensi/dataabsensikaryawan',
 			'subtitle' => 'Admin',
-			'subtitle2' => 'Data Absensi',
-			'bulan' => date('m'),
-			'tahun' => date('Y'),
-			'data' => $this->absen->absendata()->result()
+			'subtitle2' => 'Data Daryawan',
+			'data' => $this->admin->karyawan()->result()
 		];
 
 		$this->load->view('templates/app', $data, FALSE);
 	}
-	public function rekapabsensifilter()
-	{
-		$date = $this->input->post('date');
 
+
+	public function dataabsen($id)
+	{
 		$data = [
 			'title' => 'Data Absensi',
 			'page' => 'admin/absensi/dataabsensi',
-			'subtitle' => 'Admin',
+			'subtitle' => 'User',
 			'subtitle2' => 'Data Absensi',
-			'bulan' => date_format(date_create($date), 'm'),
-			'tahun' => date_format(date_create($date), 'Y'),
-			'data' => $this->absen->absendata()->result()
+			'data' => $this->absen->getAbsenById($id),
+			'bulan' => date('m'),
+			'tahun' => date('Y'),
 		];
 
 		$this->load->view('templates/app', $data, FALSE);
 	}
+
 
 	public function editabsensi($id)
 	{
@@ -78,47 +77,17 @@ class Absen extends CI_Controller
 		}
 	}
 
-	public function getAbsenId($id)
-	{
-		$data = [
-			'title' => 'Data Absensi',
-			'page' => 'user/absensi/dataabsensi',
-			'subtitle' => 'User',
-			'subtitle2' => 'Data Absensi',
-			'data' => $this->absen->getAbsenById($id)
-		];
-
-		$this->load->view('templates/app', $data, FALSE);
-	}
-
 	public function rekapabsensi()
 	{
 
 		$data = [
 			'title' => 'Data Rekap Absensi',
-			'page' => 'admin/absensi/rekapabsensi',
+			'page' => 'admin/absensi/dataabsensi',
 			'subtitle' => 'Admin',
 			'subtitle2' => 'Data Rekap',
 			'bulan' => date('m'),
 			'tahun' => date('Y'),
-			'data' => $this->admin->mahasiswa()->result()
-		];
-
-		$this->load->view('templates/app', $data, FALSE);
-	}
-
-	public function laporanfilter()
-	{
-		$date = $this->input->post('date');
-
-		$data = [
-			'title' => 'Data Rekap Absensi',
-			'page' => 'admin/absensi/rekapabsensi',
-			'subtitle' => 'Admin',
-			'subtitle2' => 'Data Rekap',
-			'bulan' => date_format(date_create($date), 'm'),
-			'tahun' => date_format(date_create($date), 'Y'),
-			'data' => $this->admin->mahasiswa()->result()
+			'data' => $this->absen->absendata()->result()
 		];
 
 		$this->load->view('templates/app', $data, FALSE);
@@ -132,6 +101,20 @@ class Absen extends CI_Controller
 		];
 
 		$this->load->view('admin/absensi/printabsensi', $data, FALSE);
+	}
+
+	public function getAbsenId($id)
+	{
+		$data = [
+			'title' => 'Data Absensi',
+			'page' => 'user/absensi/dataabsensi',
+			'subtitle' => 'User',
+			'subtitle2' => 'Data Absensi',
+
+			'data' => $this->absen->getAbsenById($id)
+		];
+
+		$this->load->view('templates/app', $data, FALSE);
 	}
 }
 

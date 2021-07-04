@@ -13,6 +13,19 @@ class Overtime extends CI_Controller
 	public function index()
 	{
 		$data = [
+			'title' => 'Data Rekap Overtime',
+			'page' => 'admin/overtime/dataovertimekaryawan',
+			'subtitle' => 'Admin',
+			'subtitle2' => 'Data Daryawan',
+			'data' => $this->admin->karyawan()->result()
+		];
+
+		$this->load->view('templates/app', $data, FALSE);
+	}
+
+	public function dataovertime()
+	{
+		$data = [
 			'title' => 'Data Overtime',
 			'page' => 'admin/overtime/dataovertime',
 			'subtitle' => 'Admin',

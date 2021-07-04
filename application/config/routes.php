@@ -73,6 +73,7 @@ $route['add-cuti-karyawan'] = 'Cuti/cuti_add';
 
 // Master Absensi
 $route['data-absensi'] = 'Absen';
+$route['rekap-absensi-filter-data'] = 'Absen/rekapabsensi';
 
 // Master Overtime 
 $route['data-overtime'] = 'Overtime';

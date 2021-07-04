@@ -247,10 +247,13 @@ class Absen_model extends CI_Model
 		$this->db->where('absen.id_absen', $id);
 		return $this->db->get()->result();
 	}
-
-
-
-	
+	public function absenId($id)
+	{
+		$this->db->select('*');
+		$this->db->from('absen');
+		$this->db->where('absen.id_absen', $id);
+		return $this->db->get();;
+	}
 }
 
 /* End of file ModelName.php */

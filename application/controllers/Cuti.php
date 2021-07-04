@@ -12,7 +12,21 @@ class Cuti extends CI_Controller
 		$this->load->model('admin_model', 'admin');
 	}
 
+
 	public function index()
+	{
+		$data = [
+			'title' => 'Data Rekap Cuti',
+			'page' => 'admin/cuti/datacutikaryawan',
+			'subtitle' => 'Admin',
+			'subtitle2' => 'Data Daryawan',
+			'data' => $this->admin->karyawan()->result()
+		];
+
+		$this->load->view('templates/app', $data, FALSE);
+	}
+
+	public function datacuti()
 	{
 		$data = [
 			'title' => 'Data Cuti',

@@ -28,10 +28,10 @@
 						foreach ($data as $data) {
 							$jumlah = 0;
 							$stotal = 0;
-							$absen  = $this->absen->absenbulan($data->nim, $tahun, $bulan)->num_rows();
-							$wfh  = $this->absen->wfhbulan($data->nim, $tahun, $bulan)->num_rows();
-							$sakit  = $this->absen->sakitbulan($data->nim, $tahun, $bulan)->num_rows();
-							$izin   = $this->absen->izinbulan($data->nim, $tahun, $bulan)->num_rows();
+							$absen  = $this->absen->absenbulan($data->nip, $tahun, $bulan)->num_rows();
+							$wfh  = $this->absen->absenwfh($data->nip, $tahun, $bulan)->num_rows();
+							$sakit  = $this->absen->sakitbulan($data->nip, $tahun, $bulan)->num_rows();
+							$izin   = $this->absen->izinbulan($data->nip, $tahun, $bulan)->num_rows();
 
 							// $overtime   = $this->absen->overtimebulan($data->nip, $tahun, $bulan)->num_rows();
 							//var_dump($cuti);
@@ -39,7 +39,7 @@
 						?>
 							<tr>
 								<td width="1%"><?= $no++ ?></td>
-								<td><?= ucfirst($data->nim) ?></td>
+								<td><?= ucfirst($data->nip) ?></td>
 								<td><?= ucfirst($data->nama) ?></td>
 								<td><?= $absen ?></td>
 								<td><?= $wfh ?></td>
