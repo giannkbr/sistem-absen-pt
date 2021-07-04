@@ -1,3 +1,7 @@
+<?php
+$users = $this->Admin_model->listing();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,8 +10,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 	<title>E - Absensi | <?= $title ?></title>
-	<meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
-	<meta content="Themesdesign" name="author" />
+	<meta content="Sistem AbsensiK Karyawan" name="description" />
+	<meta content="Yunita" name="author" />
 	<link rel="shortcut icon" href="<?= base_url('assets/') ?>images/favicon.ico">
 
 	<!--Morris Chart CSS -->
@@ -62,12 +66,12 @@
 							<li class="dropdown notification-list list-inline-item">
 								<div class="dropdown notification-list nav-pro-img">
 									<a class="dropdown-toggle nav-link arrow-none nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-										<img src="<?= $this->session->userdata('photo') ?>" alt="user" class="rounded-circle">
+										<img src="<?php echo base_url('images/users/' . $users['photo']) ?>" alt="user" class="rounded-circle">
 									</a>
 									<div class="dropdown-menu dropdown-menu-right profile-dropdown ">
 										<!-- item-->
-										<a href="#" class="dropdown-item">Hai, <?= $this->session->userdata('nama') ?></a>
-										<a class="dropdown-item" href="#"><i class="mdi mdi-account-circle"></i>
+										<a href="#" class="dropdown-item">Hai, <?php echo $users['nama']; ?></a>
+										<a class="dropdown-item" href="<?= base_url('user/profile/' . $this->session->userdata('nip'))  ?>"><i class="mdi mdi-account-circle"></i>
 											Profile</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

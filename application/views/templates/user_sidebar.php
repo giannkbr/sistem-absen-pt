@@ -7,7 +7,7 @@
 				<ul class="navigation-menu">
 
 					<li class="has-submenu">
-						<a href="/"><i class="icon-accelerator"></i> Dashboard</a>
+						<a href="<?= base_url('user') ?>"><i class="icon-accelerator"></i> Dashboard</a>
 					</li>
 
 					<li class="has-submenu">
@@ -21,7 +21,7 @@
 					</li>
 					<li class="has-submenu">
 						<a href="<?= base_url('laporan/getLaporanById/' . $this->session->userdata('nip')) ?>">
-							<i class="icon-pencil-ruler"></i> Laporan 
+							<i class="icon-pencil-ruler"></i> Laporan
 						</a>
 					</li>
 

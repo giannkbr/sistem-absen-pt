@@ -10,6 +10,7 @@ class User extends CI_Controller
 		is_login();
 		date_default_timezone_set('Asia/Jakarta');
 		$this->load->model('User_model', 'user');
+		$this->load->model('Admin_model', 'admin');
 	}
 
 	public function index()
@@ -27,9 +28,9 @@ class User extends CI_Controller
 
 		if ($absen->num_rows() == 0) {
 			$data['waktu'] = 'masuk';
-		} elseif ($absen1->keterangan == 'Sudah absen masuk' || $absen1->keterangan == 'terlambat') {
+		} elseif ($absen1->keterangan == 'masuk' || $absen1->keterangan == 'terlambat') {
 			$data['waktu'] = 'pulang';
-		} elseif ($absen1->keterangan == 'Sudah absen masuk dan pulang') {
+		} elseif ($absen1->keterangan == 'pulang') {
 			$data['waktu'] = 'dilarang';
 		}
 
@@ -105,6 +106,59 @@ class User extends CI_Controller
 		// 	redirect($_SERVER['HTTP_REFERER']);
 		//           return false;
 		// }
+	}
+
+	public function profile()
+	{
+		$id =  $this->input->post('nip');
+
+		$this->form_validation->set_rules('nama', 'Nama Karyawan', 'required|trim', [
+			'required' => 'Nama Karyawan tidak boleh kosong.'
+		]);
+		if ($this->form_validation->run() == FALSE) {
+			$data = [
+				'title' => 'User Profile',
+				'page' => 'user/user/profile',
+				'subtitle' => 'Dashboard',
+				'subtitle2' => 'User',
+				'users' => $this->admin->listing(),
+			];
+
+			$this->load->view('templates/app', $data);
+		} else {
+			$data = [
+				'nama' => $this->input->post('nama'),
+				'email' => $this->input->post('email'),
+				'password' => hashEncrypt($this->input->post('password')),
+				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+			];
+
+			$oldPhoto = $this->input->post('ganti_gambar');
+			$path = './images/users/';
+			$config['upload_path'] 		= './images/users/';
+			$config['allowed_types'] 	= 'gif|jpg|png|jpeg';
+			$config['overwrite']  		= true;
+
+			$this->load->library('upload', $config);
+			// Jika foto diubah
+			if ($_FILES['photo']['name']) {
+				if ($this->upload->do_upload('photo')) {
+
+					@unlink($path . $oldPhoto);
+					if (!$this->upload->do_upload('photo')) {
+						$this->session->set_flashdata('message', 'swal("Ops!", "Photo gagal diupload", "error");');
+						redirect(base_url('user/profile'));
+					} else {
+						$newPhoto = $this->upload->data();
+						$data['photo'] = $newPhoto['file_name'];
+					}
+				}
+			}
+			$this->admin->editKaryawan($id, $data);
+			$this->session->set_flashdata('message', 'swal("Berhasil!", "Data User Berhasil Diedit!", "success");');
+
+			redirect(base_url('user/profile'));
+		}
 	}
 }
 

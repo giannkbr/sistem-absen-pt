@@ -37,7 +37,7 @@ class Admin_model extends CI_Model
 		$this->db->update('users', $data, ['nip' => $id]);
 		return $this->db->affected_rows();
 	}
-	
+
 	public function printabsensi($id)
 	{
 		$this->db->select('*');
@@ -99,6 +99,19 @@ class Admin_model extends CI_Model
 		$this->db->from('users');
 		$this->db->where('users.nip', $id);
 		return $this->db->get()->result();
+	}
+
+	public function listing()
+	{
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->order_by('nip', 'desc');
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->row_array();
+		}
+		$query->free_result();
 	}
 }
 

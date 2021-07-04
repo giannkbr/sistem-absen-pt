@@ -17,7 +17,7 @@
 				geolocationSupported ?
 				"<b>Error:</b> The Geolocation service failed." :
 				"<b>Error:</b> This browser doesn't support geolocation."
-				);
+			);
 			popup.openOn(geolocationMap);
 		}
 
@@ -36,13 +36,12 @@
 				function() {
 					geolocationErrorOccurred(true, popup, geolocationMap.getCenter());
 				}
-				);
+			);
 		} else {
 			//No browser support geolocation service
 			geolocationErrorOccurred(false, popup, geolocationMap.getCenter());
 		}
 	};
-
 </script>
 
 <div class="row">
@@ -63,51 +62,49 @@
 								<?php } else { ?>
 									<h3>Hai, <?= $this->session->userdata('nama') ?> Anda hari ini sudah melakukan Absensi <b>Masuk</b> dan <b>Pulang</b></h3>
 								<?php }  ?>
-							</div>
-							<?= date('G:i:s') ?>
 						</div>
-						<div class="form-group row">
-							<div class="col-sm-12">
-								<div id='maps-absen' name="maps-absen" style='width: 100%; height:250px;'></div>
-								<div id="location_maps" name="location_maps"></div>
-								<hr>
-								<input type="hidden" name="location_maps" id="location_maps_hidden" />
-								<script type="text/javascript">
-									setInterval(function () {
-										document.getElementById("location_maps_hidden").value = document.getElementById("location_maps").innerHTML;
-									}, 5);
-								</script>
-								<?= form_error('maps-absen', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
-							</div>
-						</div>
-						<div class=" form-group row">
-							<label for="keterangan_kerja" class="col-sm-2 col-form-label">Keterangan Bekerja</label>
-							<div class="col-sm-10">
-								<select name="keterangan_kerja" class="form-control">
-									<option value="" selected="" disabled="">Pilih Keterangan</option>
-									<option value="1">WFO</option>
-									<option value="2">WFH</option>
-								</select>
-								<?= form_error('keterangan_kerja', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="deskripsi" class="col-sm-2 col-form-label">Deskripsi Pekerjaan</label>
-							<div class="col-sm-10">
-								<textarea name="deskripsi" id="" cols="50" rows="10"></textarea>
-								<?= form_error('deskripsi', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-sm-10">
-								<h3>Silahkan lakukan absen pada tombol absen berikut </h3>
-								<button class="btn btn-primary" id="btn-absensi">Absen <?= $waktu ?></button></h4>
-							</div>
+						<?= date('G:i:s') ?>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-12">
+							<div id='maps-absen' name="maps-absen" style='width: 100%; height:250px;'></div>
+							<input type="hidden" name="location_maps" id="location_maps_hidden" />
+							<script type="text/javascript">
+								setInterval(function() {
+									document.getElementById("location_maps_hidden").value = document.getElementById("location_maps").innerHTML;
+								}, 5);
+							</script>
+							<?= form_error('maps-absen', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
 						</div>
 					</div>
+					<div class=" form-group row">
+						<label for="keterangan_kerja" class="col-sm-2 col-form-label">Keterangan Bekerja</label>
+						<div class="col-sm-10">
+							<select name="keterangan_kerja" class="form-control">
+								<option value="" selected="" disabled="">Pilih Keterangan</option>
+								<option value="1">WFO</option>
+								<option value="2">WFH</option>
+							</select>
+							<?= form_error('keterangan_kerja', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="deskripsi" class="col-sm-2 col-form-label">Deskripsi Pekerjaan</label>
+						<div class="col-sm-10">
+							<textarea name="deskripsi" id="" cols="50" rows="10"></textarea>
+							<?= form_error('deskripsi', '<small class="text-danger ml-3 mt-1">', '</small>'); ?>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<h3>Silahkan lakukan absen pada tombol absen berikut </h3>
+							<button class="btn btn-primary" id="btn-absensi">Absen <?= $waktu ?></button></h4>
+						</div>
+					</div>
+				</div>
 
-				</form>
-			</div>
+			</form>
+		</div>
 		</section>
 	</div>
 </div>
