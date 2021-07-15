@@ -24,7 +24,7 @@ class Admin_model extends CI_Model
 		$this->db->insert('users', $data);
 	}
 
-	function karyawan()
+	public function karyawan()
 	{
 		$this->db->select('*');
 		$this->db->from('users');
@@ -48,10 +48,10 @@ class Admin_model extends CI_Model
 
 	function usersid($id)
 	{
+	
 		$this->db->select('*');
 		$this->db->from('users');
 		$this->db->join('jabatan', 'users.jabatan_id = jabatan.jabatan_id');
-		$this->db->where('users.nip', $id);
 		return $this->db->get();
 	}
 

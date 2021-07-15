@@ -88,12 +88,13 @@ class Overtime extends CI_Controller
 	public function overtime_simpan()
 	{
 		$this->db->trans_start();
-
+		$tgl1 = $this->input->post('mulai');
 		$data = array(
 			'nip'			=> $this->session->userdata('nip'),
 			'mulai'			=> $this->input->post('mulai'),
 			'selesai'			=> $this->input->post('selesai'),
-			'status'		=> 'diajukan'
+			'status'		=> 'diajukan',
+			'waktu_pengajuan' => date('Y-m-d', strtotime($tgl1))
 		);
 		if (isset($_FILES['bukti']['name'])) {
 			$config['upload_path'] 		= './images/overtime/';
@@ -111,19 +112,19 @@ class Overtime extends CI_Controller
 			}
 		}
 		$this->db->insert('overtime', $data);
-		$cek = $this->db->query(" select * from overtime order by id_overtime desc limit 1 ")->row();
-		$dt1 = new DateTime($this->input->post('mulai'));
-		$dt2 = new DateTime($this->input->post('akhir'));
-		$jml = $dt2->diff($dt1)->days + 1;
-		$tgl1 = $this->input->post('mulai');
-		$no  = 1;
-		for ($i = 0; $i < $jml; $i++) {
-			$insert = array(
-				'id_overtime' => $cek->id_overtime,
-				'tanggal' => date('Y-m-d', strtotime('+' . $i . ' days', strtotime($tgl1))),
-			);
-			$this->db->insert('detailovertime', $insert);
-		}
+		// $cek = $this->db->query(" select * from overtime order by id_overtime desc limit 1 ")->row();
+		// $dt1 = new DateTime($this->input->post('mulai'));
+		// $dt2 = new DateTime($this->input->post('akhir'));
+		// $jml = $dt2->diff($dt1)->days + 1;
+		// $tgl1 = $this->input->post('mulai');
+		// $no  = 1;
+		// for ($i = 0; $i < $jml; $i++) {
+		// 	$insert = array(
+		// 		'id_overtime' => $cek->id_overtime,
+		// 		'tanggal' => date('Y-m-d', strtotime('+' . $i . ' days', strtotime($tgl1))),
+		// 	);
+		// 	$this->db->insert('detailovertime', $insert);
+		// }
 
 		$this->db->trans_complete();
 		$this->session->set_flashdata('message', 'swal("Berhasil!", "Pengajuan overtime", "success");');

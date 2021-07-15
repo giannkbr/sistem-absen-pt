@@ -66,12 +66,11 @@ class Absen_model extends CI_Model
 
 		$this->db->select('* ');
 		$this->db->from('cuti');
-		$this->db->join('detailcuti', 'cuti.id_cuti = detailcuti.id_cuti');
 		$this->db->where('nip', $id);
 		$this->db->where('jenis_cuti', 'cuti');
 		$this->db->where('status', 'diterima');
-		$this->db->where('year(tanggal)', $tahun);
-		$this->db->where('month(tanggal)', $bulan);
+		$this->db->where('year(waktu_pengajuan)', $tahun);
+		$this->db->where('month(waktu_pengajuan)', $bulan);
 		return $this->db->get();
 	}
 
@@ -80,11 +79,10 @@ class Absen_model extends CI_Model
 
 		$this->db->select('* ');
 		$this->db->from('overtime');
-		$this->db->join('detailovertime', 'overtime.id_overtime = detailovertime.id_overtime');
 		$this->db->where('nip', $id);
 		$this->db->where('status', 'diterima');
-		$this->db->where('year(tanggal)', $tahun);
-		$this->db->where('month(tanggal)', $bulan);
+		$this->db->where('year(waktu_pengajuan)', $tahun);
+		$this->db->where('month(waktu_pengajuan)', $bulan);
 		return $this->db->get();
 	}
 
@@ -92,12 +90,11 @@ class Absen_model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('cuti');
-		$this->db->join('detailcuti', 'cuti.id_cuti = detailcuti.id_cuti');
 		$this->db->where('nip', $id);
 		$this->db->where('jenis_cuti', 'sakit');
 		$this->db->where('status', 'diterima');
-		$this->db->where('year(tanggal)', $tahun);
-		$this->db->where('month(tanggal)', $bulan);
+		$this->db->where('year(waktu_pengajuan)', $tahun);
+		$this->db->where('month(waktu_pengajuan)', $bulan);
 		return $this->db->get();
 	}
 
@@ -105,12 +102,11 @@ class Absen_model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('cuti');
-		$this->db->join('detailcuti', 'cuti.id_cuti = detailcuti.id_cuti');
 		$this->db->where('nip', $id);
 		$this->db->where('jenis_cuti', 'izin');
 		$this->db->where('status', 'diterima');
-		$this->db->where('year(tanggal)', $tahun);
-		$this->db->where('month(tanggal)', $bulan);
+		$this->db->where('year(waktu_pengajuan)', $tahun);
+		$this->db->where('month(waktu_pengajuan)', $bulan);
 		return $this->db->get();
 	}
 
@@ -118,53 +114,50 @@ class Absen_model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('cuti');
-		$this->db->join('detailcuti', 'cuti.id_cuti = detailcuti.id_cuti');
 		$this->db->where('jenis_cuti', 'cuti');
 		$this->db->where('status', 'diterima');
-		$this->db->where('year(tanggal)', $tahun);
-		$this->db->where('month(tanggal)', $bulan);
-		$this->db->where('day(tanggal)', $hari);
+		$this->db->where('year(waktu_pengajuan)', $tahun);
+		$this->db->where('month(waktu_pengajuan)', $bulan);
+		$this->db->where('day(waktu_pengajuan)', $hari);
 		return $this->db->get();
 	}
 
-	function izintoday($tahun, $bulan, $hari)
-	{
-		$this->db->select('*');
-		$this->db->from('cuti');
-		$this->db->join('detailcuti', 'cuti.id_cuti = detailcuti.id_cuti');
-		$this->db->where('jenis_cuti', 'izin');
-		$this->db->where('status', 'diterima');
-		$this->db->where('year(tanggal)', $tahun);
-		$this->db->where('month(tanggal)', $bulan);
-		$this->db->where('day(tanggal)', $hari);
-		return $this->db->get();
-	}
+	// function izintoday($tahun, $bulan, $hari)
+	// {
+	// 	$this->db->select('*');
+	// 	$this->db->from('cuti');
+	// 	$this->db->where('jenis_cuti', 'izin');
+	// 	$this->db->where('status', 'diterima');
+	// 	$this->db->where('year(waktu_pengajuan)', $tahun);
+	// 	$this->db->where('month(waktu_pengajuan)', $bulan);
+	// 	$this->db->where('day(waktu_pengajuan)', $hari);
+	// 	return $this->db->get();
+	// }
 
-	function sakittoday($tahun, $bulan, $hari)
-	{
-		$this->db->select('*');
-		$this->db->from('cuti');
-		$this->db->join('detailcuti', 'cuti.id_cuti = detailcuti.id_cuti');
-		$this->db->where('jenis_cuti', 'sakit');
-		$this->db->where('status', 'diterima');
-		$this->db->where('year(tanggal)', $tahun);
-		$this->db->where('month(tanggal)', $bulan);
-		$this->db->where('day(tanggal)', $hari);
-		return $this->db->get();
-	}
+	// function sakittoday($tahun, $bulan, $hari)
+	// {
+	// 	$this->db->select('*');
+	// 	$this->db->from('cuti');
+	// 	$this->db->where('jenis_cuti', 'sakit');
+	// 	$this->db->where('status', 'diterima');
+	// 	$this->db->where('year(waktu_pengajuan)', $tahun);
+	// 	$this->db->where('month(waktu_pengajuan)', $bulan);
+	// 	$this->db->where('day(waktu_pengajuan)', $hari);
+	// 	return $this->db->get();
+	// }
 
 
-	function overtimetoday($tahun, $bulan, $hari)
-	{
-		$this->db->select('*');
-		$this->db->from('overtime');
-		$this->db->join('detailovertime', 'overtime.id_overtime = detailovertime.id_overtime');
-		$this->db->where('status', 'diterima');
-		$this->db->where('year(tanggal)', $tahun);
-		$this->db->where('month(tanggal)', $bulan);
-		$this->db->where('day(tanggal)', $hari);
-		return $this->db->get();
-	}
+	// function overtimetoday($tahun, $bulan, $hari)
+	// {
+	// 	$this->db->select('*');
+	// 	$this->db->from('overtime');
+	// 	$this->db->join('detailovertime', 'overtime.id_overtime = detailovertime.id_overtime');
+	// 	$this->db->where('status', 'diterima');
+	// 	$this->db->where('year(waktu_pengajuan)', $tahun);
+	// 	$this->db->where('month(waktu_pengajuan)', $bulan);
+	// 	$this->db->where('day(waktu_pengajuan)', $hari);
+	// 	return $this->db->get();
+	// }
 
 	function hari($hari)
 	{

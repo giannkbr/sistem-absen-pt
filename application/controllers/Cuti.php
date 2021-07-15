@@ -91,12 +91,13 @@ class Cuti extends CI_Controller
 	public function cuti_simpan()
 	{
 		$this->db->trans_start();
-
+		$tgl1 = $this->input->post('mulai');
 		$data = array(
 			'nip'			=> $this->session->userdata('nip'),
 			'jenis_cuti'	=> $this->input->post('jenis'),
 			'alasan'		=> $this->input->post('alasan'),
-			'status'		=> 'diajukan'
+			'status'		=> 'diajukan',
+			'waktu_pengajuan' => date('Y-m-d', strtotime($tgl1))
 		);
 		if (isset($_FILES['bukti']['name'])) {
 			$config['upload_path'] 		= './images/';
@@ -114,19 +115,19 @@ class Cuti extends CI_Controller
 			}
 		}
 		$this->db->insert('cuti', $data);
-		$cek = $this->db->query(" select * from cuti order by id_cuti desc limit 1 ")->row();
-		$dt1 = new DateTime($this->input->post('mulai'));
-		$dt2 = new DateTime($this->input->post('akhir'));
-		$jml = $dt2->diff($dt1)->days + 1;
-		$tgl1 = $this->input->post('mulai');
-		$no  = 1;
-		for ($i = 0; $i < $jml; $i++) {
-			$insert = array(
-				'id_cuti' => $cek->id_cuti,
-				'tanggal' => date('Y-m-d', strtotime('+' . $i . ' days', strtotime($tgl1))),
-			);
-			$this->db->insert('detailcuti', $insert);
-		}
+		// $cek = $this->db->query(" select * from cuti order by id_cuti desc limit 1 ")->row();
+		// $dt1 = new DateTime($this->input->post('mulai'));
+		// $dt2 = new DateTime($this->input->post('akhir'));
+		// $jml = $dt2->diff($dt1)->days + 1;
+		
+		// $no  = 1;
+		// for ($i = 0; $i < $jml; $i++) {
+		// 	$insert = array(
+		// 		'id_cuti' => $cek->id_cuti,
+				
+		// 	);
+		// 	$this->db->insert('cuti', $insert);
+		// }
 
 		$this->db->trans_complete();
 		$this->session->set_flashdata('message', 'swal("Berhasil!", "Pengajuan cuti", "success");');

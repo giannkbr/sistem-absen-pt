@@ -28,7 +28,7 @@
  					<tbody>
  						<?php $no = 1;
 							foreach ($data as $d) {
-								$cek = $this->db->query(" select min(tanggal) as mulai,max(tanggal) as akhir from detailcuti where id_cuti = '$d->id_cuti' ")->row();
+								$cek = $this->db->query("select min(waktu_pengajuan) as mulai,max(waktu_pengajuan) as akhir from cuti where id_cuti = '$d->id_cuti'")->row();
 							?>
  							<tr>
  								<td width="1%"><?= $no++ ?></td>

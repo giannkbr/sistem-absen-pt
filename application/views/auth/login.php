@@ -28,7 +28,7 @@
 				<div class="text-center m-t-0 m-b-15">
 					<a href="index.html" class="logo logo-admin"><img src="<?= base_url('assets/') ?>assets/images/logo-dark.png" alt="" height="24"></a>
 				</div>
-				<h5 class="font-18 text-center">Login <br> E - Absensi PT.UNISISTAMA MEGAH</h5>
+				<h5 class="font-18 text-center">Masuk <br> E - Absensi PT.UNISISTAMA MEGAH</h5>
 
 
 
@@ -62,8 +62,7 @@
 
 					<div class="form-group text-center m-t-20">
 						<div class="col-12">
-							<button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Log
-								In</button>
+							<button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Masuk</button>
 						</div>
 					</div>
 

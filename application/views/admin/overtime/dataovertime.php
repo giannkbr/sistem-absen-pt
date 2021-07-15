@@ -19,7 +19,7 @@
  					<tbody>
  						<?php $no = 1;
 							foreach ($data as $d) {
-								$cek = $this->db->query(" select min(tanggal) as mulai,max(tanggal) as akhir from detailovertime where id_overtime = '$d->id_overtime' ")->row();
+								$cek = $this->db->query("select min(waktu_pengajuan) as mulai,max(waktu_pengajuan) as akhir from overtime where id_overtime = '$d->id_overtime' ")->row();
 							?>
  							<tr>
  								<td width="1%"><?= $no++ ?></td>
